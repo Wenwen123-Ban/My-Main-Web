@@ -62,6 +62,37 @@
                     "units": 3
                 }
             ]
+        },
+          {
+            "active": true,
+            "semester": "3rd Semester 2026-2027",
+            "show_groups": true,
+            "show_index_feature": true,
+            "featured_subject_id": "1720000004",
+            "subjects": [
+                {
+                    "id": "1720000004",
+                    "code": "CS202",
+                    "description": "Structures",
+                    "day": "TH",
+                    "time_start": "09:00",
+                    "time_end": "10:30",
+                    "room": "Room 203",
+                    "instructor": "Prof. Cruz",
+                    "units": 3
+                },
+                {
+                    "id": "1720000005",
+                    "code": "CS204",
+                    "description": "Rithms",
+                    "day": "TH",
+                    "time_start": "10:30",
+                    "time_end": "12:00",
+                    "room": "Room 204",
+                    "instructor": "Prof. Ramos",
+                    "units": 3
+                }
+            ]
         }
     ]
 }

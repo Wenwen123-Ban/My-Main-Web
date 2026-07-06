@@ -23,6 +23,22 @@
     .note{color:#475569;margin-top:18px;font-size:.95rem}
     a{text-decoration:none;color:#0f4c81}
     a:hover{text-decoration:underline}
+    
+    /* Responsive adjustments */
+    @media (max-width: 800px) {
+      .semester-group{border-radius:12px}
+      .subject-row{grid-template-columns:130px 90px 1fr}
+      .semester-title{padding:12px}
+    }
+
+    @media (max-width: 560px) {
+      .container{padding:0 10px}
+      .semester-title{font-size:1rem;padding:10px}
+      .subject-row{grid-template-columns:1fr;gap:8px;padding:10px}
+      .subject-row .time,.subject-row .code{width:auto}
+      .day-header{font-size:.86rem;padding:8px 12px}
+      .empty-row{padding:10px}
+    }
   </style>
 </head>
 <body>
@@ -96,30 +112,7 @@
         listArea.appendChild(groupCard);
       });
 
-      DAY_KEYS.forEach(key => {
-        const list = byDay[key] || [];
-        const block = document.createElement('div');
-        block.className = 'day-block';
-
-        const header = document.createElement('div');
-        header.className = 'day-header';
-        header.textContent = DAY_NAMES[key];
-        block.appendChild(header);
-
-        if (!list.length) {
-          const empty = document.createElement('div'); empty.textContent='(no subjects)'; empty.style.color='#666'; empty.style.padding='8px'; block.appendChild(empty);
-        } else {
-          list.sort((a,b)=> timeToMinutes(a.time_start)-timeToMinutes(b.time_start));
-          list.forEach(s=>{
-            const row = document.createElement('div'); row.className='subject-row';
-            row.innerHTML = `\n              <div class="time">${minutesToDisplay(s.time_start)} – ${minutesToDisplay(s.time_end)}</div>\n              <div class="code">${s.code}</div>\n              <div class="desc">${s.description}</div>`;
-            block.appendChild(row);
-          });
-        }
-
-        listArea.appendChild(block);
-      });
-
+      
     }
 
     document.addEventListener('DOMContentLoaded', renderReadOnlySubjects);

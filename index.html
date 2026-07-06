@@ -73,6 +73,23 @@ nav {
     padding: 6px 12px;
 }
 
+header {
+    max-width: 980px;
+    margin: 0 auto 18px; /* push nav below header */
+    padding: 10px 12px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+#semester {
+    margin-top: 6px;
+    color: #333;
+    font-weight: 600;
+    text-align: center;
+}
+
+.page-semester{max-width:980px;margin:8px auto 18px;text-align:center;color:#333;font-weight:600}
+
 /* Style the list to look like a horizontal menu */
 nav ul {
     list-style-type: none;
@@ -134,8 +151,6 @@ html {
         <h1 class="heading" style="color: green; text-align: center;" >Welcome to the Main Page</h1>
         <p class="text" style="text-align: center;">Multi Purpose Project</p>
         <div id="date-time" style="font-weight: bold; margin-bottom: 6px;"></div>
-        <div id="semester" style="font-weight: 600; text-align: center; color: #333; margin-bottom: 14px;"></div>
-
     </header>
 
   <nav>
@@ -157,6 +172,9 @@ html {
          </div>
      </div>
   </nav>
+
+        <!-- Semester title moved below the nav so it no longer overlaps -->
+        <div id="semester" class="page-semester" aria-hidden="false">Multiple semesters</div>
 
     <section id="featured" class="today-container" style="display:none;">
         <hr>
@@ -218,31 +236,44 @@ document.addEventListener('click', function(event) {
     }
 });
 
-// Load and render today's subjects
+// Load and render today's subjects (features + schedule across visible groups)
 async function loadTodaySubjects() {
     const container = document.getElementById('today-subjects');
     if (!container) return;
 
     const data = await fetchSubjectsData();
-    const activeGroup = getActiveSemesterGroup(data);
+    if (!data) { container.innerHTML = '<p>Failed to load subjects.json.</p>'; return; }
+
+    const groups = Array.isArray(data.semester_groups) ? data.semester_groups : [data];
+    const featureGroups = groups.filter(g => g.show_index_feature && Array.isArray(g.subjects));
+    const scheduleGroups = groups.filter(g => g.show_groups && Array.isArray(g.subjects));
 
     const semEl = document.getElementById('semester');
     if (semEl) {
-        semEl.textContent = (activeGroup && activeGroup.semester) ? activeGroup.semester : '';
+        semEl.textContent = featureGroups.length === 1 ? featureGroups[0].semester : (scheduleGroups.length === 1 ? scheduleGroups[0].semester : 'Multiple semesters');
     }
 
     const featuredSection = document.getElementById('featured');
     const featuredContainer = document.getElementById('featured-subject');
-    if (activeGroup && activeGroup.show_index_feature && activeGroup.featured_subject_id) {
-        const featured = (activeGroup.subjects || []).find(s => s.id === activeGroup.featured_subject_id);
-        if (featured) {
-            featuredSection.style.display = 'block';
-            featuredContainer.innerHTML = `\n                <div class="subject-row">\n                    <span class="time">${minutesToDisplay(featured.time_start)} – ${minutesToDisplay(featured.time_end)}</span>\n                    <span class="code">${featured.code}</span>\n                    <span class="desc">${featured.description}</span>\n                </div>`;
-            return;
-        }
+    featuredContainer.innerHTML = '';
+
+    if (featureGroups.length) {
+        featuredSection.style.display = 'block';
+        featureGroups.forEach(group => {
+            const featured = (group.subjects || []).find(s => s.id === group.featured_subject_id);
+            if (featured) {
+                const block = document.createElement('div');
+                block.className = 'subject-row';
+                block.innerHTML = `\n                    <div class="time">${minutesToDisplay(featured.time_start)} – ${minutesToDisplay(featured.time_end)}</div>\n                    <div class="code">${featured.code}</div>\n                    <div class="desc"><strong>${group.semester}</strong>: ${featured.description}</div>`;
+                featuredContainer.appendChild(block);
+            }
+        });
+        // continue to render today's schedule below featured
+    } else {
+        featuredSection.style.display = 'none';
     }
 
-    if (!activeGroup || !activeGroup.show_groups) {
+    if (!scheduleGroups.length) {
         container.innerHTML = '<p>No subject schedule available for the active semester.</p>';
         return;
     }
@@ -253,15 +284,18 @@ async function loadTodaySubjects() {
         return;
     }
 
-    const todaySubjects = (activeGroup.subjects || []).filter(s => s.day === todayCode)
-        .sort((a, b) => timeToMinutes(a.time_start) - timeToMinutes(b.time_start));
+    const allTodaySubjects = scheduleGroups.flatMap(group => {
+        return (group.subjects || [])
+            .filter(s => s.day === todayCode)
+            .map(s => ({ ...s, semester: group.semester }));
+    }).sort((a, b) => timeToMinutes(a.time_start) - timeToMinutes(b.time_start));
 
-    if (!todaySubjects.length) {
+    if (!allTodaySubjects.length) {
         container.innerHTML = '<p>No subjects registered for today.</p>';
         return;
     }
 
-    container.innerHTML = todaySubjects.map(s => `\n        <div class="subject-row">\n            <span class="time">${minutesToDisplay(s.time_start)} – ${minutesToDisplay(s.time_end)}</span>\n            <span class="code">${s.code}</span>\n            <span class="desc">${s.description}</span>\n        </div>`).join('');
+    container.innerHTML = allTodaySubjects.map(s => `\n        <div class="subject-row">\n            <span class="time">${minutesToDisplay(s.time_start)} – ${minutesToDisplay(s.time_end)}</span>\n            <span class="code">${s.code}</span>\n            <span class="desc">${s.description} <em>(${s.semester})</em></span>\n        </div>`).join('');
 }
 
 // Ensure subjects and other UI load after DOM ready
