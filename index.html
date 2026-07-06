@@ -95,6 +95,34 @@ nav ul li a:hover {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
+/* Today's subjects styles */
+.today-container {
+    max-width: 800px;
+    margin: 12px auto;
+    padding: 0 16px;
+    font-family: Arial, sans-serif;
+}
+.subject-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 6px 0;
+    border-bottom: 1px solid #eee;
+}
+.subject-row .time {
+    width: 140px;
+    color: #555;
+    font-size: 0.95rem;
+}
+.subject-row .code {
+    width: 80px;
+    font-weight: 700;
+    color: #2a7a2a;
+}
+.subject-row .desc {
+    flex: 1;
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -128,6 +156,14 @@ html {
      </div>
   </nav>
 
+    <section id="today" class="today-container">
+        <hr>
+        <h2>TODAY</h2>
+        <div id="today-subjects">
+            <!-- Today's subjects will be rendered here -->
+        </div>
+    </section>
+
  
   <section id="intro">
     <hr>
@@ -141,6 +177,7 @@ html {
       <p>Here is what this project can do...</p> 
   </section>
 
+    <script src="script.js"></script>
 </body>
 <script>
     function updateDateTime() {
@@ -172,6 +209,34 @@ document.addEventListener('click', function(event) {
         dropdownContent.classList.remove('active');
         dropbtn.classList.remove('active');
     }
+});
+
+// Load and render today's subjects
+async function loadTodaySubjects() {
+    const container = document.getElementById('today-subjects');
+    if (!container) return;
+
+    const todayCode = getTodayCode();
+    if (!todayCode) {
+        container.innerHTML = '<p>No classes today — it\'s the weekend.</p>';
+        return;
+    }
+
+    const subjects = await loadSubjectsPreferLocal();
+    const todaySubjects = (subjects || []).filter(s => s.day === todayCode)
+        .sort((a, b) => timeToMinutes(a.time_start) - timeToMinutes(b.time_start));
+
+    if (!todaySubjects.length) {
+        container.innerHTML = '<p>No subjects registered for today.</p>';
+        return;
+    }
+
+    container.innerHTML = todaySubjects.map(s => `\n        <div class="subject-row">\n            <span class="time">${minutesToDisplay(s.time_start)} – ${minutesToDisplay(s.time_end)}</span>\n            <span class="code">${s.code}</span>\n            <span class="desc">${s.description}</span>\n        </div>`).join('');
+}
+
+// Ensure subjects and other UI load after DOM ready
+document.addEventListener('DOMContentLoaded', function () {
+    loadTodaySubjects();
 });
 </script>
 </html>

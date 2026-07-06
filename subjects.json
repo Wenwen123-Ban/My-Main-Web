@@ -1,0 +1,28 @@
+{
+    "last_updated": "2026-07-06",
+    "semester": "1st Semester 2026-2027",
+    "subjects": [
+        {
+            "id": "1720000001",
+            "code": "CC101",
+            "description": "Introduction to Computing",
+            "day": "M",
+            "time_start": "07:00",
+            "time_end": "08:00",
+            "room": "Room 101",
+            "instructor": "Prof. Santos",
+            "units": 3
+        },
+        {
+            "id": "1720000002",
+            "code": "CC102",
+            "description": "Computer Programming 1",
+            "day": "T",
+            "time_start": "08:00",
+            "time_end": "09:30",
+            "room": "Lab 2",
+            "instructor": "Prof. Reyes",
+            "units": 3
+        }
+    ]
+}

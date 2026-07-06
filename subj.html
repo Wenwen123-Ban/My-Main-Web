@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Subject Manager</title>
+    <style>
+        :root{--max:900px;--muted:#666;--accent:#2a7a2a}
+        body{font-family: Arial, sans-serif;margin:16px;color:#222}
+        header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+        h1{margin:0}
+        .controls{display:flex;gap:8px;align-items:center}
+        .container{max-width:var(--max);margin:18px auto}
+        .panel{background:#fff;padding:12px;border:1px solid #e6e6e6;border-radius:6px}
+        form .row{display:flex;gap:8px;margin-bottom:8px}
+        form label{min-width:80px;font-size:0.9rem}
+        input[type=text], input[type=time], select, input[type=number]{flex:1;padding:6px;border:1px solid #ccc;border-radius:4px}
+        button{background:var(--accent);color:#fff;border:none;padding:8px 12px;border-radius:4px;cursor:pointer}
+        button.secondary{background:#666}
+        .day-block{margin-top:12px}
+        .day-header{background:#f3f3f3;padding:6px 8px;font-weight:700;border-radius:4px}
+        .subject-row{display:flex;gap:12px;align-items:center;padding:8px;border-bottom:1px solid #eee}
+        .subject-row .time{width:140px;color:var(--muted)}
+        .subject-row .code{width:90px;font-weight:700;color:var(--accent)}
+        .subject-row .desc{flex:1}
+        .subject-row .actions{width:80px;text-align:right}
+        .note{font-size:0.9rem;color:#444;margin-top:8px}
+        .reminder{margin-top:8px;color:#b35}
+        .file-input{display:none}
+        .empty{color:var(--muted);padding:8px}
+        .top-actions{display:flex;gap:8px;align-items:center}
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Subject List & Registration</h1>
+        <div class="controls">
+            <a href="index.html"><button class="secondary">Back</button></a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="panel">
+            <div class="top-actions">
+                <button id="addToggle">+ Add Subject</button>
+                <button id="downloadBtn">⬇ Download JSON</button>
+                <button id="importBtn" class="secondary">⬆ Import JSON</button>
+                <input id="importFile" class="file-input" type="file" accept="application/json">
+            </div>
+
+            <div id="addForm" style="display:none;margin-top:12px">
+                <form id="subjectForm">
+                    <div class="row">
+                        <label for="code">Code</label>
+                        <input id="code" name="code" type="text" placeholder="CC101">
+                    </div>
+                    <div class="row">
+                        <label for="description">Description</label>
+                        <input id="description" name="description" type="text" placeholder="Introduction to Computing">
+                    </div>
+                    <div class="row">
+                        <label for="day">Day</label>
+                        <select id="day" name="day">
+                            <option value="M">Monday</option>
+                            <option value="T">Tuesday</option>
+                            <option value="W">Wednesday</option>
+                            <option value="TH">Thursday</option>
+                            <option value="F">Friday</option>
+                        </select>
+                    </div>
+                    <div class="row">
+                        <label for="timeStart">Time Start</label>
+                        <input id="timeStart" name="timeStart" type="time" value="07:00">
+                        <label for="timeEnd" style="min-width:60px">End</label>
+                        <input id="timeEnd" name="timeEnd" type="time" value="08:00">
+                    </div>
+                    <div class="row">
+                        <label for="room">Room</label>
+                        <input id="room" name="room" type="text" placeholder="Room 101">
+                    </div>
+                    <div class="row">
+                        <label for="instructor">Instructor</label>
+                        <input id="instructor" name="instructor" type="text" placeholder="Prof. Santos">
+                        <label for="units" style="min-width:40px">Units</label>
+                        <input id="units" name="units" type="number" min="0" value="3" style="width:80px">
+                    </div>
+                    <div style="display:flex;gap:8px;margin-top:8px">
+                        <button type="submit">Save Subject</button>
+                        <button type="button" id="cancelAdd" class="secondary">Cancel</button>
+                    </div>
+                    <p id="formError" style="color:#b33;margin-top:8px;display:none"></p>
+                </form>
+            </div>
+
+            <div id="subjectsList" style="margin-top:12px">
+                <!-- Rendered subjects grouped by day -->
+            </div>
+
+            <p class="note">⚠ Remember to download and commit <strong>subjects.json</strong> to save permanently to GitHub.</p>
+            <p id="downloadNote" class="reminder" style="display:none">Download ready — remember to commit this file.</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Render subjects grouped by day in DAY_ORDER
+        const DAY_NAMES = { M: 'MONDAY', T: 'TUESDAY', W: 'WEDNESDAY', TH: 'THURSDAY', F: 'FRIDAY' };
+        const DAY_KEYS = ['M','T','W','TH','F'];
+
+        async function renderSubjects() {
+            const container = document.getElementById('subjectsList');
+            container.innerHTML = '';
+            const subjects = await loadSubjectsPreferLocal();
+            const byDay = { M: [], T: [], W: [], TH: [], F: [] };
+            (subjects || []).forEach(s => { if (byDay[s.day]) byDay[s.day].push(s); });
+
+            DAY_KEYS.forEach(key => {
+                const list = byDay[key] || [];
+                const block = document.createElement('div');
+                block.className = 'day-block';
+
+                const header = document.createElement('div');
+                header.className = 'day-header';
+                header.textContent = DAY_NAMES[key];
+                block.appendChild(header);
+
+                if (!list.length) {
+                    const empty = document.createElement('div');
+                    empty.className = 'empty';
+                    empty.textContent = '(no subjects)';
+                    block.appendChild(empty);
+                } else {
+                    // sort by time
+                    list.sort((a,b)=> timeToMinutes(a.time_start)-timeToMinutes(b.time_start));
+                    list.forEach(s => {
+                        const row = document.createElement('div');
+                        row.className = 'subject-row';
+                        row.innerHTML = `
+                            <div class="time">${minutesToDisplay(s.time_start)} – ${minutesToDisplay(s.time_end)}</div>
+                            <div class="code">${s.code}</div>
+                            <div class="desc">${s.description}</div>
+                            <div class="actions"><button data-id="${s.id}" class="delBtn">✕</button></div>
+                        `;
+                        block.appendChild(row);
+                    });
+                }
+
+                container.appendChild(block);
+            });
+
+            // wire delete buttons
+            document.querySelectorAll('.delBtn').forEach(btn => {
+                btn.addEventListener('click', function(){ deleteSubject(this.dataset.id); });
+            });
+        }
+
+        // Save subject from form
+        function showError(msg) {
+            const el = document.getElementById('formError');
+            el.style.display = 'block';
+            el.textContent = msg;
+        }
+        function clearError(){ const el=document.getElementById('formError'); el.style.display='none'; el.textContent=''; }
+
+        function getSubjectsLocal() { return getSubjects(); }
+
+        function saveSubject(form) {
+            clearError();
+            const subject = {
+                id: Date.now().toString(),
+                code: (form.code.value || '').trim().toUpperCase(),
+                description: (form.description.value || '').trim(),
+                day: form.day.value,
+                time_start: form.timeStart.value,
+                time_end: form.timeEnd.value,
+                room: (form.room.value || '').trim(),
+                instructor: (form.instructor.value || '').trim(),
+                units: parseInt(form.units.value || '0', 10)
+            };
+
+            if (!subject.code || !subject.description) { showError('Code and description are required.'); return; }
+            if (timeToMinutes(subject.time_end) <= timeToMinutes(subject.time_start)) { showError('End time must be after start time.'); return; }
+
+            const subjects = getSubjectsLocal();
+            // conflict check
+            const conflict = subjects.find(s => s.day === subject.day && timeToMinutes(s.time_start) < timeToMinutes(subject.time_end) && timeToMinutes(s.time_end) > timeToMinutes(subject.time_start));
+            if (conflict) { showError(`Time conflict with: ${conflict.code} (${conflict.time_start}–${conflict.time_end})`); return; }
+
+            subjects.push(subject);
+            localStorage.setItem('subjects', JSON.stringify(subjects));
+            renderSubjects();
+            document.getElementById('downloadNote').style.display = 'block';
+            // reset form
+            document.getElementById('subjectForm').reset();
+            document.getElementById('addForm').style.display='none';
+        }
+
+        function deleteSubject(id) {
+            const ok = confirm('Remove this subject?'); if(!ok) return;
+            const subjects = getSubjectsLocal().filter(s=>s.id !== id);
+            localStorage.setItem('subjects', JSON.stringify(subjects));
+            renderSubjects();
+            document.getElementById('downloadNote').style.display = 'block';
+        }
+
+        function downloadJSON() {
+            const subjects = getSubjectsLocal();
+            const data = { last_updated: new Date().toISOString().split('T')[0], semester: '1st Semester 2026-2027', subjects };
+            const blob = new Blob([JSON.stringify(data,null,4)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a'); a.href = url; a.download = 'subjects.json'; a.click(); URL.revokeObjectURL(url);
+        }
+
+        function importJSON(file) {
+            const reader = new FileReader();
+            reader.onload = (e)=>{
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (!Array.isArray(data.subjects)) { alert('Invalid JSON structure'); return; }
+                    localStorage.setItem('subjects', JSON.stringify(data.subjects));
+                    renderSubjects();
+                    alert(`Imported ${data.subjects.length} subjects.`);
+                } catch(err){ alert('Invalid JSON file.'); }
+            };
+            reader.readAsText(file);
+        }
+
+        // UI wiring
+        document.getElementById('addToggle').addEventListener('click', ()=>{
+            const f=document.getElementById('addForm'); f.style.display = f.style.display==='none'? 'block':'none';
+        });
+        document.getElementById('cancelAdd').addEventListener('click', ()=>{ document.getElementById('addForm').style.display='none'; clearError(); });
+
+        document.getElementById('subjectForm').addEventListener('submit', function(e){ e.preventDefault(); saveSubject(this); });
+        document.getElementById('downloadBtn').addEventListener('click', downloadJSON);
+        document.getElementById('importBtn').addEventListener('click', ()=> document.getElementById('importFile').click());
+        document.getElementById('importFile').addEventListener('change', function(){ if(this.files && this.files[0]) importJSON(this.files[0]); });
+
+        // initial render
+        document.addEventListener('DOMContentLoaded', renderSubjects);
+    </script>
+</body>
+</html>
