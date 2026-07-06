@@ -50,6 +50,38 @@ async function fetchFromJSON() {
     }
 }
 
+// Fetch the full JSON file (subjects + metadata)
+async function fetchSubjectsData() {
+    try {
+        const res = await fetch('subjects.json', { cache: 'no-store' });
+        if (!res.ok) return null;
+        const data = await res.json();
+        return data;
+    } catch (e) {
+        console.warn('fetchSubjectsData failed', e);
+        return null;
+    }
+}
+
+function getActiveSemesterGroup(data) {
+    if (!data) return null;
+    if (Array.isArray(data.semester_groups)) {
+        const exactActive = data.semester_groups.find(g => g.active);
+        if (exactActive) return exactActive;
+        const visibleGroup = data.semester_groups.find(g => g.show_groups || g.show_index_feature);
+        return visibleGroup || data.semester_groups[0] || null;
+    }
+    return data;
+}
+
+function getVisibleSemesterGroups(data) {
+    if (!data) return [];
+    if (Array.isArray(data.semester_groups)) {
+        return data.semester_groups.filter(g => g.show_groups || g.show_index_feature);
+    }
+    return [data];
+}
+
 // Utility to load from localStorage first, otherwise from subjects.json
 async function loadSubjectsPreferLocal() {
     const local = getSubjects();

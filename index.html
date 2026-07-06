@@ -133,9 +133,16 @@ html {
     <header>
         <h1 class="heading" style="color: green; text-align: center;" >Welcome to the Main Page</h1>
         <p class="text" style="text-align: center;">Multi Purpose Project</p>
-        <div id="date-time" style="font-weight: bold; margin-bottom: 20px;"></div>
+        <div id="date-time" style="font-weight: bold; margin-bottom: 6px;"></div>
+        <div id="semester" style="font-weight: 600; text-align: center; color: #333; margin-bottom: 14px;"></div>
 
     </header>
+
+    <section id="featured" class="today-container" style="display:none;">
+        <hr>
+        <h2>Featured Subject</h2>
+        <div id="featured-subject"></div>
+    </section>
   <nav>
       <ul>
          <li><a href="index.html">Home</a></li>
@@ -146,7 +153,7 @@ html {
       <div class="dropdown">
          <button class="dropbtn">Dropdown</button>
          <div class="dropdown-content">
-             <a href="#">Link 1</a>
+             <a href="subj.html">Subjects List</a>
              <a href="#">Link 2</a>
              <a href="#">Link 3</a>
              <a href="#">Link 1</a>
@@ -216,14 +223,37 @@ async function loadTodaySubjects() {
     const container = document.getElementById('today-subjects');
     if (!container) return;
 
+    const data = await fetchSubjectsData();
+    const activeGroup = getActiveSemesterGroup(data);
+
+    const semEl = document.getElementById('semester');
+    if (semEl) {
+        semEl.textContent = (activeGroup && activeGroup.semester) ? activeGroup.semester : '';
+    }
+
+    const featuredSection = document.getElementById('featured');
+    const featuredContainer = document.getElementById('featured-subject');
+    if (activeGroup && activeGroup.show_index_feature && activeGroup.featured_subject_id) {
+        const featured = (activeGroup.subjects || []).find(s => s.id === activeGroup.featured_subject_id);
+        if (featured) {
+            featuredSection.style.display = 'block';
+            featuredContainer.innerHTML = `\n                <div class="subject-row">\n                    <span class="time">${minutesToDisplay(featured.time_start)} – ${minutesToDisplay(featured.time_end)}</span>\n                    <span class="code">${featured.code}</span>\n                    <span class="desc">${featured.description}</span>\n                </div>`;
+            return;
+        }
+    }
+
+    if (!activeGroup || !activeGroup.show_groups) {
+        container.innerHTML = '<p>No subject schedule available for the active semester.</p>';
+        return;
+    }
+
     const todayCode = getTodayCode();
     if (!todayCode) {
         container.innerHTML = '<p>No classes today — it\'s the weekend.</p>';
         return;
     }
 
-    const subjects = await loadSubjectsPreferLocal();
-    const todaySubjects = (subjects || []).filter(s => s.day === todayCode)
+    const todaySubjects = (activeGroup.subjects || []).filter(s => s.day === todayCode)
         .sort((a, b) => timeToMinutes(a.time_start) - timeToMinutes(b.time_start));
 
     if (!todaySubjects.length) {

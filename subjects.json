@@ -1,28 +1,68 @@
 {
     "last_updated": "2026-07-06",
-    "semester": "1st Semester 2026-2027",
-    "subjects": [
+    "semester_groups": [
         {
-            "id": "1720000001",
-            "code": "CC101",
-            "description": "Introduction to Computing",
-            "day": "M",
-            "time_start": "07:00",
-            "time_end": "08:00",
-            "room": "Room 101",
-            "instructor": "Prof. Santos",
-            "units": 3
+            "active": true,
+            "semester": "1st Semester 2026-2027",
+            "show_groups": true,
+            "show_index_feature": true,
+            "featured_subject_id": "1720000001",
+            "subjects": [
+                {
+                    "id": "1720000001",
+                    "code": "CC101",
+                    "description": "Introduction to Computing",
+                    "day": "M",
+                    "time_start": "07:00",
+                    "time_end": "08:00",
+                    "room": "Room 101",
+                    "instructor": "Prof. Santos",
+                    "units": 3
+                },
+                {
+                    "id": "1720000002",
+                    "code": "CC102",
+                    "description": "Computer Programming 1",
+                    "day": "T",
+                    "time_start": "08:00",
+                    "time_end": "09:30",
+                    "room": "Lab 2",
+                    "instructor": "Prof. Reyes",
+                    "units": 3
+                }
+            ]
         },
         {
-            "id": "1720000002",
-            "code": "CC102",
-            "description": "Computer Programming 1",
-            "day": "T",
-            "time_start": "08:00",
-            "time_end": "09:30",
-            "room": "Lab 2",
-            "instructor": "Prof. Reyes",
-            "units": 3
+            "active": false,
+            "semester": "2nd Semester 2026-2027",
+            "show_groups": false,
+            "show_index_feature": false,
+            "featured_subject_id": "1720000003",
+            "subjects": [
+                {
+                    "id": "1720000003",
+                    "code": "CS201",
+                    "description": "Data Structures",
+                    "day": "W",
+                    "time_start": "09:00",
+                    "time_end": "10:30",
+                    "room": "Room 203",
+                    "instructor": "Prof. Cruz",
+                    "units": 3
+                },
+                {
+                    "id": "1720000004",
+                    "code": "CS202",
+                    "description": "Algorithms",
+                    "day": "TH",
+                    "time_start": "10:30",
+                    "time_end": "12:00",
+                    "room": "Room 204",
+                    "instructor": "Prof. Ramos",
+                    "units": 3
+                }
+            ]
         }
     ]
 }
+
