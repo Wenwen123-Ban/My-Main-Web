@@ -138,11 +138,6 @@ html {
 
     </header>
 
-    <section id="featured" class="today-container" style="display:none;">
-        <hr>
-        <h2>Featured Subject</h2>
-        <div id="featured-subject"></div>
-    </section>
   <nav>
       <ul>
          <li><a href="index.html">Home</a></li>
@@ -162,6 +157,12 @@ html {
          </div>
      </div>
   </nav>
+
+    <section id="featured" class="today-container" style="display:none;">
+        <hr>
+        <h2>Featured Subjects</h2>
+        <div id="featured-subject"></div>
+    </section>
 
     <section id="today" class="today-container">
         <hr>
@@ -185,7 +186,6 @@ html {
   </section>
 
     <script src="script.js"></script>
-</body>
 <script>
     function updateDateTime() {
     const now = new Date();
@@ -269,4 +269,5 @@ document.addEventListener('DOMContentLoaded', function () {
     loadTodaySubjects();
 });
 </script>
+</body>
 </html>

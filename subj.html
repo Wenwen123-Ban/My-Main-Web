@@ -5,17 +5,24 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Subjects — Read Only</title>
   <style>
-    body{font-family: Arial, sans-serif;margin:16px;color:#222}
-    .container{max-width:900px;margin:0 auto}
-    h1{margin-bottom:6px}
-    .semester{font-weight:700;margin-bottom:12px}
-    .day-block{margin-top:12px}
-    .day-header{background:#f3f3f3;padding:6px 8px;font-weight:700;border-radius:4px}
-    .subject-row{display:flex;gap:12px;align-items:center;padding:8px;border-bottom:1px solid #eee}
-    .subject-row .time{width:140px;color:#666}
-    .subject-row .code{width:90px;font-weight:700;color:#2a7a2a}
-    .subject-row .desc{flex:1}
-    .note{color:#666;margin-top:12px}
+    body{font-family: Inter, Arial, sans-serif;margin:18px;background:#f2f5f9;color:#202124}
+    .container{max-width:980px;margin:0 auto;padding:0 12px}
+    h1{margin-bottom:8px;font-size:1.75rem;color:#16325c}
+    .semester{font-weight:700;margin-bottom:16px;color:#475569}
+    .semester-group{background:#ffffff;border:1px solid #dde3ea;border-radius:16px;box-shadow:0 12px 30px rgba(18,38,63,0.07);margin-bottom:20px;overflow:hidden}
+    .semester-title{background:#eef4fb;color:#0f4c81;font-weight:700;padding:14px 18px;border-bottom:1px solid #d7e3ef}
+    .day-block{margin:0}
+    .day-header{background:#f6f9fd;color:#374151;padding:10px 16px;font-weight:700;border-bottom:1px solid #e2e8f0;text-transform:uppercase;letter-spacing:0.06em;font-size:.92rem}
+    .subject-row{display:grid;grid-template-columns:150px 100px 1fr;gap:12px;align-items:center;padding:12px 16px;border-bottom:1px solid #f0f4f8}
+    .subject-row:nth-child(even){background:#f8fbff}
+    .subject-row:last-child{border-bottom:none}
+    .subject-row .time{color:#3b4754;font-size:.95rem}
+    .subject-row .code{color:#0f5d3b;font-weight:700}
+    .subject-row .desc{color:#31393f}
+    .empty-row{padding:12px 16px;color:#64748b;background:#f9fbfe}
+    .note{color:#475569;margin-top:18px;font-size:.95rem}
+    a{text-decoration:none;color:#0f4c81}
+    a:hover{text-decoration:underline}
   </style>
 </head>
 <body>
@@ -39,22 +46,55 @@
       const data = await fetchSubjectsData();
       if (!data) { listArea.textContent = 'Failed to load subjects.json'; return; }
 
-      const activeGroup = getActiveSemesterGroup(data);
-      if (!activeGroup) { listArea.innerHTML = '<p>No active semester group found.</p>'; return; }
+      const groups = Array.isArray(data.semester_groups) ? data.semester_groups.filter(g => g.show_groups && Array.isArray(g.subjects)) : [];
+      if (!groups.length) { listArea.innerHTML = '<p>No visible subject groups are enabled.</p>'; return; }
 
-      // show semester
       const semEl = document.getElementById('semester');
-      semEl.textContent = activeGroup.semester || '';
+      semEl.textContent = groups.length === 1 ? groups[0].semester : 'Multiple semesters';
 
-      // control flag: show_groups
-      if (!activeGroup.show_groups) {
-        listArea.innerHTML = '<p>Subject groups are disabled for the active semester.</p>';
-        return;
-      }
+      groups.forEach(group => {
+        const groupCard = document.createElement('div');
+        groupCard.className = 'semester-group';
 
-      const subjects = activeGroup.subjects || [];
-      const byDay = { M: [], T: [], W: [], TH: [], F: [] };
-      subjects.forEach(s => { if (byDay[s.day]) byDay[s.day].push(s); });
+        const groupTitle = document.createElement('div');
+        groupTitle.className = 'semester-title';
+        groupTitle.textContent = group.semester;
+        groupCard.appendChild(groupTitle);
+
+        const subjects = group.subjects || [];
+        const byDay = { M: [], T: [], W: [], TH: [], F: [] };
+        subjects.forEach(s => { if (byDay[s.day]) byDay[s.day].push(s); });
+
+        DAY_KEYS.forEach(key => {
+          const list = byDay[key] || [];
+          const block = document.createElement('div');
+          block.className = 'day-block';
+
+          const header = document.createElement('div');
+          header.className = 'day-header';
+          header.textContent = DAY_NAMES[key];
+          block.appendChild(header);
+
+          if (!list.length) {
+            const empty = document.createElement('div');
+            empty.className = 'empty-row';
+            empty.textContent = '(no subjects)';
+            block.appendChild(empty);
+          } else {
+            list.sort((a,b)=> timeToMinutes(a.time_start)-timeToMinutes(b.time_start));
+            list.forEach(s=>{
+              const row = document.createElement('div');
+              row.className = 'subject-row';
+              row.innerHTML = `\n                <div class="time">${minutesToDisplay(s.time_start)} – ${minutesToDisplay(s.time_end)}</div>\n                <div class="code">${s.code}</div>\n                <div class="desc">${s.description}</div>`;
+              block.appendChild(row);
+            });
+          }
+
+          groupCard.appendChild(block);
+        });
+
+        listArea.appendChild(groupCard);
+      });
 
       DAY_KEYS.forEach(key => {
         const list = byDay[key] || [];
