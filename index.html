@@ -259,16 +259,21 @@ async function loadTodaySubjects() {
 
     if (featureGroups.length) {
         featuredSection.style.display = 'block';
-        featureGroups.forEach(group => {
-            const featured = (group.subjects || []).find(s => s.id === group.featured_subject_id);
-            if (featured) {
+        const featuredList = featureGroups.flatMap(group => {
+            return (group.subjects || []).map(s => ({ ...s, semester: group.semester, isFeatured: s.id === group.featured_subject_id }));
+        }).sort((a, b) => timeToMinutes(a.time_start, a.time_start_is_am) - timeToMinutes(b.time_start, b.time_start_is_am));
+
+        if (!featuredList.length) {
+            featuredSection.style.display = 'none';
+        } else {
+            featuredList.forEach(subject => {
                 const block = document.createElement('div');
                 block.className = 'subject-row';
-                block.innerHTML = `\n                    <div class="time">${minutesToDisplay(featured.time_start)} – ${minutesToDisplay(featured.time_end)}</div>\n                    <div class="code">${featured.code}</div>\n                    <div class="desc"><strong>${group.semester}</strong>: ${featured.description}</div>`;
+                const featuredNote = subject.isFeatured ? ' <strong>(featured)</strong>' : '';
+                block.innerHTML = `\n                    <div class="time">${minutesToDisplay(subject.time_start, subject.time_start_is_am)} – ${minutesToDisplay(subject.time_end, subject.time_end_is_am)}</div>\n                    <div class="code">${subject.code}</div>\n                    <div class="desc"><strong>${subject.semester}</strong>: ${subject.description}${featuredNote}</div>`;
                 featuredContainer.appendChild(block);
-            }
-        });
-        // continue to render today's schedule below featured
+            });
+        }
     } else {
         featuredSection.style.display = 'none';
     }
@@ -288,14 +293,14 @@ async function loadTodaySubjects() {
         return (group.subjects || [])
             .filter(s => s.day === todayCode)
             .map(s => ({ ...s, semester: group.semester }));
-    }).sort((a, b) => timeToMinutes(a.time_start) - timeToMinutes(b.time_start));
+    }).sort((a, b) => timeToMinutes(a.time_start, a.time_start_is_am) - timeToMinutes(b.time_start, b.time_start_is_am));
 
     if (!allTodaySubjects.length) {
         container.innerHTML = '<p>No subjects registered for today.</p>';
         return;
     }
 
-    container.innerHTML = allTodaySubjects.map(s => `\n        <div class="subject-row">\n            <span class="time">${minutesToDisplay(s.time_start)} – ${minutesToDisplay(s.time_end)}</span>\n            <span class="code">${s.code}</span>\n            <span class="desc">${s.description} <em>(${s.semester})</em></span>\n        </div>`).join('');
+    container.innerHTML = allTodaySubjects.map(s => `\n        <div class="subject-row">\n            <span class="time">${minutesToDisplay(s.time_start, s.time_start_is_am)} – ${minutesToDisplay(s.time_end, s.time_end_is_am)}</span>\n            <span class="code">${s.code}</span>\n            <span class="desc">${s.description} <em>(${s.semester})</em></span>\n        </div>`).join('');
 }
 
 // Ensure subjects and other UI load after DOM ready

@@ -97,11 +97,11 @@
             empty.textContent = '(no subjects)';
             block.appendChild(empty);
           } else {
-            list.sort((a,b)=> timeToMinutes(a.time_start)-timeToMinutes(b.time_start));
+            list.sort((a,b)=> timeToMinutes(a.time_start, a.time_start_is_am)-timeToMinutes(b.time_start, b.time_start_is_am));
             list.forEach(s=>{
               const row = document.createElement('div');
               row.className = 'subject-row';
-              row.innerHTML = `\n                <div class="time">${minutesToDisplay(s.time_start)} – ${minutesToDisplay(s.time_end)}</div>\n                <div class="code">${s.code}</div>\n                <div class="desc">${s.description}</div>`;
+              row.innerHTML = `\n                <div class="time">${minutesToDisplay(s.time_start, s.time_start_is_am)} – ${minutesToDisplay(s.time_end, s.time_end_is_am)}</div>\n                <div class="code">${s.code}</div>\n                <div class="desc">${s.description}</div>`;
               block.appendChild(row);
             });
           }

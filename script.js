@@ -8,19 +8,50 @@ function getTodayCode() {
     return map[day] || null; // null on weekends
 }
 
-function timeToMinutes(timeStr) {
-    if (!timeStr) return 0;
-    const [hours, minutes] = timeStr.split(':').map(Number);
-    return (hours || 0) * 60 + (minutes || 0);
+function parseTimeString(timeStr, isAMFlag) {
+    if (!timeStr || typeof timeStr !== 'string') return null;
+    const normalized = timeStr.trim().toUpperCase();
+    const ampmMatch = normalized.match(/^(\d{1,2})(?::(\d{1,2}))?\s*(AM|PM)$/);
+    if (ampmMatch) {
+        let hours = Number(ampmMatch[1]);
+        const minutes = Number(ampmMatch[2] || '0');
+        const period = ampmMatch[3];
+        if (period === 'PM' && hours < 12) hours += 12;
+        if (period === 'AM' && hours === 12) hours = 0;
+        return { hours, minutes };
+    }
+
+    const twentyFourMatch = normalized.match(/^(\d{1,2})(?::(\d{1,2}))$/);
+    if (twentyFourMatch) {
+        let hours = Number(twentyFourMatch[1]);
+        const minutes = Number(twentyFourMatch[2] || '0');
+        if (hours >= 0 && hours <= 23) {
+            if (isAMFlag === true) {
+                if (hours === 12) hours = 0;
+            } else if (isAMFlag === false) {
+                if (hours < 12) hours += 12;
+            } else if (hours >= 1 && hours <= 6) {
+                hours += 12;
+            }
+            return { hours, minutes };
+        }
+    }
+
+    return null;
 }
 
-function minutesToDisplay(timeStr) {
-    if (!timeStr) return '';
-    const [h, m] = timeStr.split(':').map(Number);
-    if (Number.isNaN(h) || Number.isNaN(m)) return timeStr;
-    const period = h >= 12 ? 'PM' : 'AM';
-    const hour = h % 12 === 0 ? 12 : h % 12;
-    return `${hour}:${String(m).padStart(2, '0')} ${period}`;
+function timeToMinutes(timeStr, isAMFlag) {
+    const parsed = parseTimeString(timeStr, isAMFlag);
+    if (!parsed) return 0;
+    return parsed.hours * 60 + parsed.minutes;
+}
+
+function minutesToDisplay(timeStr, isAMFlag) {
+    const parsed = parseTimeString(timeStr, isAMFlag);
+    if (!parsed) return timeStr || '';
+    const period = parsed.hours >= 12 ? 'PM' : 'AM';
+    const hour = parsed.hours % 12 === 0 ? 12 : parsed.hours % 12;
+    return `${hour}:${String(parsed.minutes).padStart(2, '0')} ${period}`;
 }
 
 function getSubjects() {
