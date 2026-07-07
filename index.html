@@ -123,18 +123,21 @@ nav ul li a:hover {
     display: flex;
     gap: 12px;
     align-items: center;
-    padding: 6px 0;
+    padding: 10px 0;
     border-bottom: 1px solid #eee;
+    flex-wrap: wrap;
 }
 .subject-row .time {
     width: 140px;
     color: #555;
     font-size: 0.95rem;
+    min-width: 120px;
 }
 .subject-row .code {
     width: 80px;
     font-weight: 700;
     color: #2a7a2a;
+    min-width: 60px;
 }
 .subject-row .desc {
     flex: 1;
@@ -142,6 +145,71 @@ nav ul li a:hover {
 
 html {
     scroll-behavior: smooth;
+}
+
+@media (max-width: 720px) {
+    nav {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+    nav ul {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .dropdown {
+        align-self: flex-end;
+    }
+    .today-container {
+        padding: 0 12px;
+    }
+    .subject-row {
+        gap: 8px;
+    }
+    .subject-row .time,
+    .subject-row .code {
+        width: auto;
+        min-width: 0;
+    }
+}
+
+@media (max-width: 520px) {
+    body {
+        margin: 0;
+    }
+    header {
+        padding: 12px 10px;
+    }
+    .dropbtn {
+        width: 100%;
+        text-align: center;
+    }
+    .dropdown-content {
+        min-width: 100%;
+        right: auto;
+        left: 0;
+    }
+    .today-container {
+        padding: 0 10px;
+    }
+    .subject-row {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px 0;
+    }
+    .subject-row .time,
+    .subject-row .code,
+    .subject-row .desc {
+        width: 100%;
+    }
+    .subject-row .time {
+        font-size: 0.95rem;
+    }
+    nav ul li a {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
 }
 
     </style>

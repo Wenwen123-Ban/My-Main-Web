@@ -31,12 +31,30 @@
       .semester-title{padding:12px}
     }
 
+    @media (max-width: 680px) {
+      .container{padding:0 14px}
+      .semester-title{font-size:1rem;padding:12px}
+      .subject-row{grid-template-columns:120px 80px 1fr}
+      .subject-row .time,.subject-row .code{width:auto}
+      .day-header{font-size:.88rem;padding:10px 14px}
+    }
+
     @media (max-width: 560px) {
       .container{padding:0 10px}
       .semester-title{font-size:1rem;padding:10px}
       .subject-row{grid-template-columns:1fr;gap:8px;padding:10px}
       .subject-row .time,.subject-row .code{width:auto}
       .day-header{font-size:.86rem;padding:8px 12px}
+      .empty-row{padding:10px}
+    }
+
+    @media (max-width: 420px) {
+      body{margin:12px 8px}
+      h1{font-size:1.5rem}
+      .semester-title{font-size:.98rem;padding:10px}
+      .subject-row{padding:10px 10px;gap:10px}
+      .subject-row .time,.subject-row .code{font-size:.92rem}
+      .day-header{font-size:.82rem;padding:8px 10px}
       .empty-row{padding:10px}
     }
   </style>
