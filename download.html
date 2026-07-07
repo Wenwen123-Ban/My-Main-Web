@@ -5,7 +5,279 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Download page</title>
 </head>
+<style>
+       .dropbtn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 8px 12px;
+  font-size: 13px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    max-width: calc(100vw - 24px); /* never exceed the viewport width */
+    right: 0; /* align the dropdown's right edge with the button's right edge */
+    left: auto;
+    max-height: 180px; /* show up to five items, then scroll */
+    overflow-y: auto;
+    box-shadow: 0px 6px 12px 0px rgba(0,0,0,0.15);
+    z-index: 1;
+    border-radius: 4px;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 8px 12px;
+    text-decoration: none;
+    display: block;
+    font-size: 13px;
+    height: 36px; /* fixed item height to ensure exactly five visible */
+    box-sizing: border-box;
+    line-height: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd;}
+
+/* Small custom scrollbar for dropdown */
+.dropdown-content::-webkit-scrollbar { width: 8px; }
+.dropdown-content::-webkit-scrollbar-thumb { background-color: rgba(0,0,0,0.15); border-radius: 4px; }
+
+/* Show the dropdown menu when active */
+.dropdown-content.active {display: block;}
+
+/* Change the background color of the dropdown button when active */
+.dropbtn.active {background-color: #3e8e41;}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    padding: 6px 12px;
+}
+
+header {
+    max-width: 980px;
+    margin: 0 auto 18px; /* push nav below header */
+    padding: 10px 12px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+#semester {
+    margin-top: 6px;
+    color: #333;
+    font-weight: 600;
+    text-align: center;
+}
+
+.page-semester{max-width:980px;margin:8px auto 18px;text-align:center;color:#333;font-weight:600}
+
+/* Style the list to look like a horizontal menu */
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 13px;
+    padding: 6px 10px;
+    border-radius: 3px;
+    transition: background-color 0.2s ease;
+}
+
+nav ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Today's subjects styles */
+.today-container {
+    max-width: 800px;
+    margin: 12px auto;
+    padding: 0 16px;
+    font-family: Arial, sans-serif;
+}
+.subject-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    flex-wrap: wrap;
+}
+.subject-row .time {
+    width: 140px;
+    color: #555;
+    font-size: 0.95rem;
+    min-width: 120px;
+}
+.subject-row .code {
+    width: 80px;
+    font-weight: 700;
+    color: #2a7a2a;
+    min-width: 60px;
+}
+.subject-row .desc {
+    flex: 1;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.page-content {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 18px 16px 32px;
+    font-family: Arial, sans-serif;
+}
+
+.page-content h1 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.page-content section {
+    margin-bottom: 22px;
+    background: #fff;
+    border: 1px solid #e4e7ec;
+    border-radius: 12px;
+    box-shadow: 0 10px 24px rgba(15,23,42,0.06);
+    padding: 18px;
+}
+
+.page-content section h2 {
+    margin-top: 0;
+    font-size: 1.15rem;
+}
+
+.page-content ul {
+    padding-left: 18px;
+}
+
+.page-content a {
+    color: #0f4c81;
+}
+
+@media (max-width: 720px) {
+    nav {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+    nav ul {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .dropdown {
+        align-self: flex-end;
+    }
+    .today-container {
+        padding: 0 12px;
+    }
+    .subject-row {
+        gap: 8px;
+    }
+    .subject-row .time,
+    .subject-row .code {
+        width: auto;
+        min-width: 0;
+    }
+}
+
+@media (max-width: 520px) {
+    body {
+        margin: 0;
+    }
+    header {
+        padding: 12px 10px;
+    }
+    .dropbtn {
+        width: 100%;
+        text-align: center;
+    }
+    .dropdown-content {
+        min-width: 100%;
+        right: auto;
+        left: 0;
+    }
+    .today-container {
+        padding: 0 10px;
+    }
+    .subject-row {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px 0;
+    }
+    .subject-row .time,
+    .subject-row .code,
+    .subject-row .desc {
+        width: 100%;
+    }
+    .subject-row .time {
+        font-size: 0.95rem;
+    }
+    nav ul li a {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+}
+
+</style>
 <body>
-    
+    <nav>
+      <ul>
+         <li><a href="index.html">Home</a></li>
+         <li><a href="#intro">Introducing</a></li>
+         <li><a href="download.html">Projects</a></li>
+         <li><a href="#">About</a></li>
+      </ul>
+    </nav>
+
+    <main class="page-content">
+      <header>
+        <h1>Download / Projects</h1>
+        <p>This page is separate from the navigation. Anything you add here will not become part of the menu.</p>
+      </header>
+
+      <section id="intro">
+        <h2>About this page</h2>
+        <p>Use the section below to add downlonavigation bar above remains fixed and separate from the page content.</p>
+      </section>
+
+      <section id="download-list">
+        <h2>Available Downloads from Github </h2>
+        <ul>
+          <li><a href="https://wenwen123-ban.github.io/NEXUS-WEB/">Nexus</a> - My first python based project</li>
+           <li><a href="https://github.com/Wenwen123-Ban/Open-World-Game.git">Open World Game</a> - A project that still on progress!</li>
+            <li><a href="https://github.com/Wenwen123-Ban/Tripple-LArge-Project.git">Library Borrowing system with Email NOtification.</a> - The longest Project that I ever made!</li>
+             <li><a href="https://github.com/Wenwen123-Ban/Research-cool-project.git">LBAS</a> - My first project but for reaserch.</li>
+        </ul>
+      </section>
+    </main>
 </body>
 </html>

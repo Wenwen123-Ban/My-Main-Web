@@ -1,0 +1,27 @@
+{
+    "calcugrade_enabled": true,
+    "is_demo": true,
+    "demo_message": "Public demo grade records for open-source demonstration.",
+    "semester_records": [
+        {
+            "Semester_no": "Demo Semester 1",
+            "show_semester": true,
+            "calculated_average": 0,
+            "subjects": [
+                { "subject_name": "Demo Subject A", "subject_grade": 88 },
+                { "subject_name": "Demo Subject B", "subject_grade": 92 },
+                { "subject_name": "Demo Subject C", "subject_grade": 85 }
+            ]
+        },
+        {
+            "Semester_no": "Demo Semester 2",
+            "show_semester": true,
+            "calculated_average": 0,
+            "subjects": [
+                { "subject_name": "Demo Subject D", "subject_grade": 90 },
+                { "subject_name": "Demo Subject E", "subject_grade": 87 },
+                { "subject_name": "Demo Subject F", "subject_grade": 91 }
+            ]
+        }
+    ]
+}
