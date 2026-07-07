@@ -2,10 +2,10 @@
     "last_updated": "2026-07-06",
     "semester_groups": [
         {
-            "active": true,
+            "active": false,
             "semester": "1st Semester 2026-2027",
-            "show_groups": true,
-            "show_index_feature": true,
+            "show_groups": false,
+            "show_index_feature": false,
             "featured_subject_id": "1720000001",
             "subjects": [
                 {
@@ -33,10 +33,10 @@
             ]
         },
         {
-            "active": true,
+            "active": false,
             "semester": "2nd Semester 2026-2027",
-            "show_groups": true,
-            "show_index_feature": true,
+            "show_groups": false,
+            "show_index_feature": false,
             "featured_subject_id": "1720000003",
             "subjects": [
                 {
@@ -64,10 +64,10 @@
             ]
         },
           {
-            "active": true,
+            "active": false,
             "semester": "3rd Semester 2026-2027",
-            "show_groups": true,
-            "show_index_feature": true,
+            "show_groups": false,
+            "show_index_feature": false,
             "featured_subject_id": "1720000004",
             "subjects": [
                 {
