@@ -59,6 +59,17 @@
 .dropdown-content::-webkit-scrollbar { width: 8px; }
 .dropdown-content::-webkit-scrollbar-thumb { background-color: rgba(0,0,0,0.15); border-radius: 4px; }
 
+/* Featured subjects scrollable container */
+#featured-subject {
+    max-height: 180px; /* show up to five items, then scroll */
+    overflow-y: auto;
+    border-radius: 4px;
+}
+
+/* Custom scrollbar for featured subjects */
+#featured-subject::-webkit-scrollbar { width: 8px; }
+#featured-subject::-webkit-scrollbar-thumb { background-color: rgba(0,0,0,0.15); border-radius: 4px; }
+
 /* Show the dropdown menu when active */
 .dropdown-content.active {display: block;}
 
