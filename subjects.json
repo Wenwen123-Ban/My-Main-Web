@@ -48,11 +48,11 @@
                     "instructor": "TBA",
                     "units": 3
                 },
-                 {
+                {
                     "id": "1720000002",
                     "code": "CC108",
                     "description": "Object-Oriented Programming -LEC",
-                    "day": "M",
+                    "day": "W",
                     "time_start": "03:00",
                     "time_start_is_am": false,
                     "time_end": "05:00",
@@ -61,7 +61,7 @@
                     "instructor": "TBA",
                     "units": 3
                 },
-                 {
+                {
                     "id": "1720000003",
                     "code": "CC109",
                     "description": "Data Communication and Networking -LAB",
@@ -217,7 +217,7 @@
                     "instructor": "TBA",
                     "units": 3
                 },
-                 {
+                {
                     "id": "1720000008",
                     "code": "PT101",
                     "description": "Platform Technologies 1",
@@ -267,7 +267,7 @@
                 }
             ]
         },
-          {
+        {
             "active": false,
             "semester": "3rd Semester 2026-2027",
             "show_groups": false,
@@ -304,4 +304,3 @@
         }
     ]
 }
-
