@@ -1,397 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main</title>
-    <style>
-        .dropbtn {
-  background-color: #04AA6D;
-  color: white;
-  padding: 8px 12px;
-  font-size: 13px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-/* The container <div> - needed to position the dropdown content */
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-/* Dropdown Content (Hidden by Default) */
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    max-width: calc(100vw - 24px); /* never exceed the viewport width */
-    right: 0; /* align the dropdown's right edge with the button's right edge */
-    left: auto;
-    max-height: 180px; /* show up to five items, then scroll */
-    overflow-y: auto;
-    box-shadow: 0px 6px 12px 0px rgba(0,0,0,0.15);
-    z-index: 1;
-    border-radius: 4px;
-}
-
-/* Links inside the dropdown */
-.dropdown-content a {
-    color: black;
-    padding: 8px 12px;
-    text-decoration: none;
-    display: block;
-    font-size: 13px;
-    height: 36px; /* fixed item height to ensure exactly five visible */
-    box-sizing: border-box;
-    line-height: 20px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #ddd;}
-
-/* Small custom scrollbar for dropdown */
-.dropdown-content::-webkit-scrollbar { width: 8px; }
-.dropdown-content::-webkit-scrollbar-thumb { background-color: rgba(0,0,0,0.15); border-radius: 4px; }
-
-/* Featured subjects scrollable container */
-#featured-subject {
-    max-height: 180px; /* show up to five items, then scroll */
-    overflow-y: auto;
-    border-radius: 4px;
-}
-
-/* Custom scrollbar for featured subjects */
-#featured-subject::-webkit-scrollbar { width: 8px; }
-#featured-subject::-webkit-scrollbar-thumb { background-color: rgba(0,0,0,0.15); border-radius: 4px; }
-
-/* Show the dropdown menu when active */
-.dropdown-content.active {display: block;}
-
-/* Change the background color of the dropdown button when active */
-.dropbtn.active {background-color: #3e8e41;}
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #333;
-    padding: 6px 12px;
-}
-
-header {
-    max-width: 980px;
-    margin: 0 auto 18px; /* push nav below header */
-    padding: 10px 12px;
-    box-sizing: border-box;
-    position: relative;
-}
-
-#semester {
-    margin-top: 6px;
-    color: #333;
-    font-weight: 600;
-    text-align: center;
-}
-
-.page-semester{max-width:980px;margin:8px auto 18px;text-align:center;color:#333;font-weight:600}
-
-/* Style the list to look like a horizontal menu */
-nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    gap: 20px;
-}
-
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-size: 13px;
-    padding: 6px 10px;
-    border-radius: 3px;
-    transition: background-color 0.2s ease;
-}
-
-nav ul li a:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-}
-
-/* Today's subjects styles */
-.today-container {
-    max-width: 800px;
-    margin: 12px auto;
-    padding: 0 16px;
-    font-family: Arial, sans-serif;
-}
-.subject-row {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
-    flex-wrap: wrap;
-}
-.subject-row .time {
-    width: 140px;
-    color: #555;
-    font-size: 0.95rem;
-    min-width: 120px;
-}
-.subject-row .code {
-    width: 80px;
-    font-weight: 700;
-    color: #2a7a2a;
-    min-width: 60px;
-}
-.subject-row .desc {
-    flex: 1;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-@media (max-width: 720px) {
-    nav {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 10px;
-    }
-    nav ul {
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-    .dropdown {
-        align-self: flex-end;
-    }
-    .today-container {
-        padding: 0 12px;
-    }
-    .subject-row {
-        gap: 8px;
-    }
-    .subject-row .time,
-    .subject-row .code {
-        width: auto;
-        min-width: 0;
-    }
-}
-
-@media (max-width: 520px) {
-    body {
-        margin: 0;
-    }
-    header {
-        padding: 12px 10px;
-    }
-    .dropbtn {
-        width: 100%;
-        text-align: center;
-    }
-    .dropdown-content {
-        min-width: 100%;
-        right: auto;
-        left: 0;
-    }
-    .today-container {
-        padding: 0 10px;
-    }
-    .subject-row {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 10px 0;
-    }
-    .subject-row .time,
-    .subject-row .code,
-    .subject-row .desc {
-        width: 100%;
-    }
-    .subject-row .time {
-        font-size: 0.95rem;
-    }
-    nav ul li a {
-        padding: 8px 10px;
-        font-size: 12px;
-    }
-}
-
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Main</title>
+  <style>
+    :root{--bg:#eef4ff;--ink:#14213d;--muted:#64748b;--card:#ffffff;--line:#dbe7f3;--primary:#2563eb;--primary-dark:#1e40af;--accent:#14b8a6;--warm:#f59e0b;--danger:#ef4444;--shadow:0 24px 60px rgba(30,64,175,.14);--radius:24px}*{box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;margin:0;background:radial-gradient(circle at top left,rgba(20,184,166,.18),transparent 30%),radial-gradient(circle at top right,rgba(37,99,235,.20),transparent 32%),linear-gradient(180deg,#f8fbff 0%,var(--bg) 100%);color:var(--ink);min-height:100vh}a{color:var(--primary)}.container{max-width:1180px;margin:0 auto;padding:32px 18px 46px}.hero{position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.72);border-radius:32px;padding:30px;background:linear-gradient(135deg,rgba(255,255,255,.92),rgba(239,246,255,.84));box-shadow:var(--shadow)}.hero:after{content:"";position:absolute;right:-72px;top:-88px;width:250px;height:250px;border-radius:50%;background:linear-gradient(135deg,rgba(37,99,235,.22),rgba(20,184,166,.18))}.topbar{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;flex-wrap:wrap;position:relative;z-index:1}.eyebrow{display:inline-flex;gap:8px;align-items:center;margin:0 0 10px;padding:7px 12px;border-radius:999px;background:#e0f2fe;color:#075985;font-size:.82rem;font-weight:800;letter-spacing:.03em;text-transform:uppercase}h1{margin:.15rem 0;color:#0f172a;font-size:clamp(2rem,5vw,4.15rem);line-height:.98;letter-spacing:-.055em}.lead{color:#475569;margin:.9rem 0 0;max-width:680px;font-size:1.05rem;line-height:1.7}.button{display:inline-flex;align-items:center;gap:8px;background:var(--primary);color:#fff;padding:11px 15px;border-radius:14px;text-decoration:none;font-weight:800;box-shadow:0 12px 24px rgba(37,99,235,.22)}.button.secondary{background:#0f172a}.quick-actions{display:flex;gap:10px;flex-wrap:wrap;margin:0}.nav-panel,.panel,.subject-card,.stat,.clock-card,.insight-card{background:rgba(255,255,255,.88);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 16px 38px rgba(15,23,42,.07);backdrop-filter:blur(14px)}.nav-panel{display:flex;justify-content:space-between;align-items:center;gap:16px;margin:18px 0;padding:12px 14px}.nav-panel ul{list-style:none;display:flex;gap:10px;flex-wrap:wrap;margin:0;padding:0}.nav-panel a,.dropbtn{border:0;border-radius:14px;padding:10px 12px;font:inherit;font-weight:800;text-decoration:none;color:#334155;background:#f8fafc}.nav-panel a:hover,.dropbtn:hover,.dropbtn.active{background:#dbeafe;color:#1e40af}.dropdown{position:relative}.dropdown-content{display:none;position:absolute;right:0;top:calc(100% + 8px);min-width:210px;max-height:220px;overflow:auto;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 18px 42px rgba(15,23,42,.16);z-index:10;padding:8px}.dropdown-content.active{display:grid;gap:4px}.dropdown-content a{display:block;white-space:nowrap}.dashboard{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(300px,.6fr);gap:18px;align-items:start;margin-top:18px}.panel{padding:18px}.section-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}.section-heading h2{margin:0;color:#0f172a;font-size:1.25rem}.note{color:var(--muted);line-height:1.55}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0}.stat{padding:18px;position:relative;overflow:hidden}.stat span{color:var(--muted);font-weight:800;font-size:.82rem;text-transform:uppercase;letter-spacing:.04em}.stat strong{display:block;font-size:1.85rem;color:var(--primary-dark);margin-top:4px}.clock-card{padding:18px;position:relative;overflow:hidden}.clock-card:before{content:"";position:absolute;right:-30px;bottom:-45px;width:120px;height:120px;border-radius:50%;background:rgba(20,184,166,.16)}.clock-label{margin:0;color:#64748b;font-size:.78rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em}.clock-time{font-size:clamp(2rem,5vw,3.1rem);font-weight:950;color:#0f172a;letter-spacing:-.06em;line-height:1;margin:8px 0}.clock-date{font-weight:800;color:#1e40af}.clock-day{display:inline-flex;margin-top:12px;padding:7px 10px;border-radius:999px;background:#dcfce7;color:#166534;font-weight:900;font-size:.8rem}.subject-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.subject-card{padding:18px;position:relative;overflow:hidden;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}.subject-card:hover{transform:translateY(-3px);border-color:#93c5fd;box-shadow:0 22px 44px rgba(37,99,235,.13)}.subject-card header{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}.code{font-size:1.18rem;font-weight:900;color:#1d4ed8;letter-spacing:-.02em}.description{font-weight:800;margin-top:4px;color:#172033}.badge{display:inline-flex;align-items:center;gap:6px;background:#dbeafe;color:#1e40af;border-radius:999px;padding:6px 10px;font-size:.78rem;font-weight:900;white-space:nowrap}.badge.today{background:#fef3c7;color:#92400e}.meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:14px;color:#465668}.meta span{background:#f8fafc;border:1px solid #eef2f7;border-radius:14px;padding:9px 10px;font-weight:650}.today-list{display:grid;gap:10px}.today-item{display:grid;grid-template-columns:86px 1fr;gap:10px;align-items:center}.today-time{font-weight:900;color:#1e40af;font-size:.82rem}.today-card{border-left:4px solid var(--accent);background:#f8fafc;border-radius:14px;padding:12px}.empty{padding:26px;text-align:center;color:#64748b}.pill-row{display:flex;gap:8px;flex-wrap:wrap}.pill{border:1px solid #bfdbfe;background:#eff6ff;color:#1e40af;border-radius:999px;padding:7px 10px;font-weight:800;font-size:.8rem}.content-section{margin-top:18px}.content-section h2{margin-top:0}@media(max-width:980px){.dashboard,.stats{grid-template-columns:1fr 1fr}.dashboard>section{grid-column:1/-1}.subject-grid{grid-template-columns:1fr}}@media(max-width:660px){.container{padding:18px 10px 34px}.hero{padding:22px;border-radius:24px}.nav-panel,.topbar{align-items:stretch}.nav-panel{flex-direction:column}.nav-panel ul,.quick-actions{width:100%}.button{flex:1;justify-content:center}.stats,.dashboard,.meta{grid-template-columns:1fr}.subject-card header{flex-direction:column}.today-item{grid-template-columns:1fr}.dropdown{width:100%}.dropbtn{width:100%}.dropdown-content{left:0;right:0}.clock-time{font-size:2.4rem}}
+  </style>
 </head>
 <body>
-    <header>
-        <h1 class="heading" style="color: green; text-align: center;" >Welcome to the Main Page</h1>
-        <p class="text" style="text-align: center;">Multi Purpose Project</p>
-        <div id="date-time" style="font-weight: bold; margin-bottom: 6px;"></div>
-    </header>
+  <main class="container">
+    <section class="hero">
+      <div class="topbar">
+        <div>
+          <p class="eyebrow">🏠 Personal schedule dashboard</p>
+          <h1>Welcome Home</h1>
+          <p class="lead">See the active semester at a glance, review every activated subject, and quickly check what class is scheduled for today.</p>
+        </div>
+        <p class="quick-actions"><a class="button secondary" href="subj.html">Manage Subjects</a><a class="button" href="download.html">View Projects</a></p>
+      </div>
+    </section>
 
-  <nav>
+    <nav class="nav-panel" aria-label="Primary navigation">
       <ul>
-         <li><a href="index.html">Home</a></li>
-         <li><a href="#intro">Introducing</a></li>
-         <li><a href="download.html">Projects</a></li>
-         <li><a href="subj.html">Subjects</a></li>
-         <li><a href="#">About</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#intro">Introducing</a></li>
+        <li><a href="download.html">Projects</a></li>
+        <li><a href="subj.html">Subjects</a></li>
+        <li><a href="#features">Features</a></li>
       </ul>
       <div class="dropdown">
-         <button class="dropbtn">Menu</button>
-         <div class="dropdown-content">
-             <a href="subj.html">Subject Management</a>
-             <a href="calcugrade.html">CalcuGrade</a>
-             <a href="#">Link 3</a>
-             <a href="#">Link 1</a>
-             <a href="#">Link 2</a>
-             <a href="#">Link 3</a>
-         </div>
-     </div>
-  </nav>
-
-        <!-- Semester title moved below the nav so it no longer overlaps -->
-        <div id="semester" class="page-semester" aria-hidden="false">Multiple semesters</div>
-
-    <section id="featured" class="today-container" style="display:none;">
-        <hr>
-        <h2>Featured Subjects</h2>
-        <div id="featured-subject"></div>
-    </section>
-
-    <section id="today" class="today-container">
-        <hr>
-        <h2>TODAY</h2>
-        <div id="today-subjects">
-            <!-- Today's subjects will be rendered here -->
+        <button class="dropbtn" type="button">Menu ▾</button>
+        <div class="dropdown-content">
+          <a href="subj.html">Subject Management</a>
+          <a href="calcugrade.html">CalcuGrade</a>
+          <a href="subjects.json">Open Subject JSON</a>
         </div>
+      </div>
+    </nav>
+
+    <section class="stats" aria-label="Active subject summary">
+      <div class="stat"><span>Active term</span><strong id="semester">—</strong></div>
+      <div class="stat"><span>Meetings</span><strong id="meetingCount">0</strong></div>
+      <div class="stat"><span>Unique subjects</span><strong id="courseCount">0</strong></div>
+      <div class="stat"><span>Today</span><strong id="todayCount">0</strong></div>
     </section>
 
- 
-  <section id="intro">
-    <hr>
-      <h1>Introduction</h1>
-      <p>Welcome to my document project...</p>
-   </section>
+    <div class="dashboard">
+      <section class="panel" aria-labelledby="activeHeading">
+        <div class="section-heading"><h2 id="activeHeading">Current activated subjects</h2><span class="badge">Active only</span></div>
+        <div id="active-subjects" class="subject-grid">Loading active subjects…</div>
+      </section>
+      <aside>
+        <div class="clock-card" aria-live="polite">
+          <p class="clock-label">Current date & time</p>
+          <div id="date-time" class="clock-time">--:--</div>
+          <div id="date-label" class="clock-date">Loading date…</div>
+          <span id="day-label" class="clock-day">Today</span>
+        </div>
+        <section class="panel content-section" aria-labelledby="todayHeading">
+          <div class="section-heading"><h2 id="todayHeading">Subject today</h2><span id="todayBadge" class="badge today">Today</span></div>
+          <div id="today-subjects" class="today-list">Loading today's subjects…</div>
+        </section>
+      </aside>
+    </div>
 
-  <section id="features">
-    <hr>
+    <section id="intro" class="panel content-section">
+      <h2>Introduction</h2>
+      <p class="note">Welcome to my document project. This home page now acts as a clean launchpad for active schedules, subject management, and project tools.</p>
+    </section>
+
+    <section id="features" class="panel content-section">
       <h2>Features</h2>
-      <p>Here is what this project can do...</p>
-      <ul>
-          <li>Manage class schedules from a static <code>subjects.json</code> file.</li>
-          <li>Use <code>subjects.schema.json</code> as a guide for valid subject data.</li>
-          <li>Search, sort, filter, and display subjects by semester, day, code, title, or units.</li>
-      </ul> 
-  </section>
+      <ul class="note">
+        <li>Render current activated subjects directly from <code>subjects.json</code>.</li>
+        <li>Highlight today's schedule based on the current day.</li>
+        <li>Show a polished live clock and date card that matches the Subject Organizer design.</li>
+      </ul>
+    </section>
+  </main>
 
-    <script src="script.js"></script>
-<script>
+  <script src="script.js"></script>
+  <script>
+    const homeEls = {};
+
     function updateDateTime() {
-    const now = new Date();
-    // This turns the date/time into a readable string
-    document.getElementById("date-time").innerHTML = now.toLocaleString();
-}
+      const now = new Date();
+      const timeOptions = { hour: 'numeric', minute: '2-digit', second: '2-digit' };
+      const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      homeEls.dateTime.textContent = now.toLocaleTimeString([], timeOptions);
+      homeEls.dateLabel.textContent = now.toLocaleDateString([], dateOptions);
+      homeEls.dayLabel.textContent = now.toLocaleDateString([], { weekday: 'long' });
+    }
 
-// Update the time immediately when the page loads
-updateDateTime();
+    function getTimeRange(subject) {
+      return `${minutesToDisplay(subject.time_start, subject.time_start_is_am)} – ${minutesToDisplay(subject.time_end, subject.time_end_is_am)}`;
+    }
 
-// Run the function every 1000 milliseconds (1 second)
-setInterval(updateDateTime, 1000);
+    function renderSubjectCard(subject) {
+      return `<article class="subject-card"><header><div><div class="code">${subject.code}</div><div class="description">${subject.description}</div></div><span class="badge">${subject.dayLabel}</span></header><div class="meta"><span>⏰ ${getTimeRange(subject)}</span><span>🏫 ${subject.room || 'TBA'}</span><span>👤 ${subject.instructor || 'TBA'}</span><span>🎓 ${subject.units || 0} units</span></div></article>`;
+    }
 
-// Dropdown button click functionality
-const dropbtn = document.querySelector('.dropbtn');
-const dropdownContent = document.querySelector('.dropdown-content');
+    function renderTodayItem(subject) {
+      return `<div class="today-item"><div class="today-time">${minutesToDisplay(subject.time_start, subject.time_start_is_am)}</div><div class="today-card"><strong>${subject.code}</strong><br><span class="note">${subject.description}</span><br><span class="note">${getTimeRange(subject)} • ${subject.room || 'TBA'}</span></div></div>`;
+    }
 
-if (dropbtn) {
-    dropbtn.addEventListener('click', function() {
+    async function loadHomeSubjects() {
+      const data = await fetchSubjectsData();
+      if (!data) {
+        homeEls.activeSubjects.innerHTML = '<div class="subject-card empty">Failed to load subjects.json.</div>';
+        homeEls.todaySubjects.innerHTML = '<div class="empty">Failed to load today\'s schedule.</div>';
+        return;
+      }
+
+      const activeGroups = getVisibleSemesterGroups(data);
+      const activeSubjects = flattenSubjectGroups(data).sort((a, b) => compareSubjects(a, b, 'day-time'));
+      const todayCode = getTodayCode();
+      const todaySubjects = todayCode ? activeSubjects.filter(subject => subject.day === todayCode) : [];
+
+      homeEls.semester.textContent = activeGroups.length === 1 ? activeGroups[0].semester : `${activeGroups.length} active terms`;
+      homeEls.meetingCount.textContent = activeSubjects.length;
+      homeEls.courseCount.textContent = new Set(activeSubjects.map(subject => subject.code)).size;
+      homeEls.todayCount.textContent = todaySubjects.length;
+      homeEls.todayBadge.textContent = todayCode ? (DAY_LABELS[todayCode] || 'Today') : 'Weekend';
+
+      homeEls.activeSubjects.innerHTML = activeSubjects.length
+        ? activeSubjects.map(renderSubjectCard).join('')
+        : '<div class="subject-card empty">No activated subjects are currently listed.</div>';
+
+      if (!todayCode) {
+        homeEls.todaySubjects.innerHTML = '<div class="empty">No classes today — it is the weekend.</div>';
+      } else if (!todaySubjects.length) {
+        homeEls.todaySubjects.innerHTML = '<div class="empty">No subjects registered for today.</div>';
+      } else {
+        homeEls.todaySubjects.innerHTML = todaySubjects.map(renderTodayItem).join('');
+      }
+    }
+
+    function initDropdown() {
+      const dropbtn = document.querySelector('.dropbtn');
+      const dropdownContent = document.querySelector('.dropdown-content');
+      if (!dropbtn || !dropdownContent) return;
+      dropbtn.addEventListener('click', () => {
         dropdownContent.classList.toggle('active');
         dropbtn.classList.toggle('active');
-    });
-}
-
-// Close dropdown when clicking elsewhere on the page
-document.addEventListener('click', function(event) {
-    if (!event.target.closest('.dropdown')) {
-        dropdownContent.classList.remove('active');
-        dropbtn.classList.remove('active');
-    }
-});
-
-// Load and render today's subjects (features + schedule across visible groups)
-async function loadTodaySubjects() {
-    const container = document.getElementById('today-subjects');
-    if (!container) return;
-
-    const data = await fetchSubjectsData();
-    if (!data) { container.innerHTML = '<p>Failed to load subjects.json.</p>'; return; }
-
-    const groups = getVisibleSemesterGroups(data);
-    const featureGroups = groups.filter(g => g.show_index_feature && Array.isArray(g.subjects));
-    const scheduleGroups = groups.filter(g => g.show_groups && Array.isArray(g.subjects));
-
-    const semEl = document.getElementById('semester');
-    if (semEl) {
-        semEl.textContent = featureGroups.length === 1 ? featureGroups[0].semester : (scheduleGroups.length === 1 ? scheduleGroups[0].semester : 'Multiple semesters');
-    }
-
-    const featuredSection = document.getElementById('featured');
-    const featuredContainer = document.getElementById('featured-subject');
-    featuredContainer.innerHTML = '';
-
-    if (featureGroups.length) {
-        featuredSection.style.display = 'block';
-        const featuredList = featureGroups.flatMap(group => {
-            return (group.subjects || []).map(s => ({ ...s, semester: group.semester, isFeatured: s.id === group.featured_subject_id }));
-        }).sort((a, b) => timeToMinutes(a.time_start, a.time_start_is_am) - timeToMinutes(b.time_start, b.time_start_is_am));
-
-        if (!featuredList.length) {
-            featuredSection.style.display = 'none';
-        } else {
-            featuredList.forEach(subject => {
-                const block = document.createElement('div');
-                block.className = 'subject-row';
-                const featuredNote = subject.isFeatured ? ' <strong>(featured)</strong>' : '';
-                block.innerHTML = `\n                    <div class="time">${minutesToDisplay(subject.time_start, subject.time_start_is_am)} – ${minutesToDisplay(subject.time_end, subject.time_end_is_am)}</div>\n                    <div class="code">${subject.code}</div>\n                    <div class="desc"><strong>${subject.semester}</strong>: ${subject.description}${featuredNote}</div>`;
-                featuredContainer.appendChild(block);
-            });
+      });
+      document.addEventListener('click', event => {
+        if (!event.target.closest('.dropdown')) {
+          dropdownContent.classList.remove('active');
+          dropbtn.classList.remove('active');
         }
-    } else {
-        featuredSection.style.display = 'none';
+      });
     }
 
-    if (!scheduleGroups.length) {
-        container.innerHTML = '<p>No subject schedule available for the active semester.</p>';
-        return;
-    }
-
-    const todayCode = getTodayCode();
-    if (!todayCode) {
-        container.innerHTML = '<p>No classes today — it\'s the weekend.</p>';
-        return;
-    }
-
-    const allTodaySubjects = scheduleGroups.flatMap(group => {
-        return (group.subjects || [])
-            .filter(s => s.day === todayCode)
-            .map(s => ({ ...s, semester: group.semester }));
-    }).sort((a, b) => timeToMinutes(a.time_start, a.time_start_is_am) - timeToMinutes(b.time_start, b.time_start_is_am));
-
-    if (!allTodaySubjects.length) {
-        container.innerHTML = '<p>No subjects registered for today.</p>';
-        return;
-    }
-
-    container.innerHTML = allTodaySubjects.map(s => `\n        <div class="subject-row">\n            <span class="time">${minutesToDisplay(s.time_start, s.time_start_is_am)} – ${minutesToDisplay(s.time_end, s.time_end_is_am)}</span>\n            <span class="code">${s.code}</span>\n            <span class="desc">${s.description} <em>(${s.semester})</em></span>\n        </div>`).join('');
-}
-
-// Ensure subjects and other UI load after DOM ready
-document.addEventListener('DOMContentLoaded', function () {
-    loadTodaySubjects();
-});
-</script>
+    document.addEventListener('DOMContentLoaded', () => {
+      Object.assign(homeEls, {
+        dateTime: document.getElementById('date-time'),
+        dateLabel: document.getElementById('date-label'),
+        dayLabel: document.getElementById('day-label'),
+        activeSubjects: document.getElementById('active-subjects'),
+        todaySubjects: document.getElementById('today-subjects'),
+        semester: document.getElementById('semester'),
+        meetingCount: document.getElementById('meetingCount'),
+        courseCount: document.getElementById('courseCount'),
+        todayCount: document.getElementById('todayCount'),
+        todayBadge: document.getElementById('todayBadge')
+      });
+      updateDateTime();
+      setInterval(updateDateTime, 1000);
+      initDropdown();
+      loadHomeSubjects();
+    });
+  </script>
 </body>
 </html>
