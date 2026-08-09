@@ -74,7 +74,7 @@ async function fetchFromJSON() {
         const res = await fetch('subjects.json', { cache: 'no-store' });
         if (!res.ok) return [];
         const data = await res.json();
-        return data.subjects || [];
+        return flattenSubjectGroups(data);
     } catch (e) {
         console.warn('fetchFromJSON failed', e);
         return [];
@@ -124,13 +124,23 @@ async function loadSubjectsPreferLocal() {
 
 const DAY_LABELS = { M: 'Monday', T: 'Tuesday', W: 'Wednesday', TH: 'Thursday', F: 'Friday', S: 'Saturday', SU: 'Sunday' };
 const FULL_DAY_ORDER = { M: 1, T: 2, W: 3, TH: 4, F: 5, S: 6, SU: 7 };
+const SCHEMA_DAY_CODES = Object.freeze(Object.keys(DAY_LABELS));
+const VALID_DAY_CODES = new Set(SCHEMA_DAY_CODES);
+
+function normalizeDayCode(day) {
+    if (typeof day !== 'string') return '';
+    const normalized = day.trim().toUpperCase();
+    return VALID_DAY_CODES.has(normalized) ? normalized : '';
+}
 
 function normalizeSubject(subject, group) {
+    const day = normalizeDayCode(subject.day);
     return {
         ...subject,
+        day,
         semester: group?.semester || 'Unassigned semester',
         activeSemester: Boolean(group?.active),
-        dayLabel: DAY_LABELS[subject.day] || subject.day || 'Unscheduled',
+        dayLabel: DAY_LABELS[day] || 'Unscheduled',
         startMinutes: timeToMinutes(subject.time_start, subject.time_start_is_am),
         endMinutes: timeToMinutes(subject.time_end, subject.time_end_is_am)
     };
