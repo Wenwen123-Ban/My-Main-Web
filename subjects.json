@@ -1,4 +1,5 @@
 {
+    "$schema": "subjects.schema.json",
     "last_updated": "2026-07-06",
     "semester_groups": [
         {
