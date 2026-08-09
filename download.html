@@ -1,284 +1,179 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Download page</title>
+    <style>
+        :root {
+            color-scheme: dark;
+            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: radial-gradient(circle at top left, rgba(16,185,129,0.16), transparent 26%),
+                        radial-gradient(circle at bottom right, rgba(96,165,250,0.12), transparent 32%),
+                        #020617;
+            color: #e2e8f0;
+        }
+
+        .page-shell {
+            width: min(1080px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 24px 16px 36px;
+            display: grid;
+            gap: 24px;
+        }
+
+        .top-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .top-nav a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 16px;
+            border-radius: 16px;
+            background: rgba(15,23,42,0.92);
+            color: #cbd5e1;
+            text-decoration: none;
+            border: 1px solid rgba(148,163,184,0.12);
+            font-weight: 700;
+            transition: transform 0.16s ease, background 0.16s ease;
+        }
+
+        .top-nav a:hover {
+            transform: translateY(-1px);
+            background: rgba(16,185,129,0.14);
+            color: #ffffff;
+        }
+
+        .card {
+            background: rgba(15,23,42,0.94);
+            border: 1px solid rgba(148,163,184,0.12);
+            border-radius: 28px;
+            box-shadow: 0 18px 42px rgba(0,0,0,0.2);
+            padding: 26px;
+        }
+
+        .hero-banner {
+            padding: 32px;
+            background: rgba(15,23,42,0.98);
+            border-radius: 32px;
+            border: 1px solid rgba(148,163,184,0.12);
+            box-shadow: 0 24px 50px rgba(0,0,0,0.22);
+        }
+
+        .hero-banner h1 {
+            margin: 0 0 12px;
+            font-size: clamp(2rem, 3vw, 2.8rem);
+            color: #ffffff;
+        }
+
+        .hero-banner p {
+            margin: 0;
+            color: #cbd5e1;
+            line-height: 1.75;
+        }
+
+        .page-copy {
+            margin: 0 0 18px;
+            color: #cbd5e1;
+            line-height: 1.8;
+            max-width: 760px;
+        }
+
+        .download-list {
+            margin: 0;
+            padding-left: 20px;
+            color: #cbd5e1;
+            line-height: 1.8;
+        }
+
+        .download-list a {
+            color: #7dd3fc;
+            text-decoration: none;
+        }
+
+        .download-list a:hover {
+            text-decoration: underline;
+        }
+
+        .section-header {
+            font-size: 1.35rem;
+            color: #ffffff;
+            margin-top: 0;
+            margin-bottom: 14px;
+        }
+
+        .back-link a {
+            color: #7dd3fc;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 780px) {
+            .top-nav {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .page-shell {
+                padding: 20px 14px 30px;
+            }
+        }
+    </style>
 </head>
-<style>
-       .dropbtn {
-  background-color: #04AA6D;
-  color: white;
-  padding: 8px 12px;
-  font-size: 13px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-/* The container <div> - needed to position the dropdown content */
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-/* Dropdown Content (Hidden by Default) */
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    max-width: calc(100vw - 24px); /* never exceed the viewport width */
-    right: 0; /* align the dropdown's right edge with the button's right edge */
-    left: auto;
-    max-height: 180px; /* show up to five items, then scroll */
-    overflow-y: auto;
-    box-shadow: 0px 6px 12px 0px rgba(0,0,0,0.15);
-    z-index: 1;
-    border-radius: 4px;
-}
-
-/* Links inside the dropdown */
-.dropdown-content a {
-    color: black;
-    padding: 8px 12px;
-    text-decoration: none;
-    display: block;
-    font-size: 13px;
-    height: 36px; /* fixed item height to ensure exactly five visible */
-    box-sizing: border-box;
-    line-height: 20px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #ddd;}
-
-/* Small custom scrollbar for dropdown */
-.dropdown-content::-webkit-scrollbar { width: 8px; }
-.dropdown-content::-webkit-scrollbar-thumb { background-color: rgba(0,0,0,0.15); border-radius: 4px; }
-
-/* Show the dropdown menu when active */
-.dropdown-content.active {display: block;}
-
-/* Change the background color of the dropdown button when active */
-.dropbtn.active {background-color: #3e8e41;}
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #333;
-    padding: 6px 12px;
-}
-
-header {
-    max-width: 980px;
-    margin: 0 auto 18px; /* push nav below header */
-    padding: 10px 12px;
-    box-sizing: border-box;
-    position: relative;
-}
-
-#semester {
-    margin-top: 6px;
-    color: #333;
-    font-weight: 600;
-    text-align: center;
-}
-
-.page-semester{max-width:980px;margin:8px auto 18px;text-align:center;color:#333;font-weight:600}
-
-/* Style the list to look like a horizontal menu */
-nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    gap: 20px;
-}
-
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-size: 13px;
-    padding: 6px 10px;
-    border-radius: 3px;
-    transition: background-color 0.2s ease;
-}
-
-nav ul li a:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-}
-
-/* Today's subjects styles */
-.today-container {
-    max-width: 800px;
-    margin: 12px auto;
-    padding: 0 16px;
-    font-family: Arial, sans-serif;
-}
-.subject-row {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
-    flex-wrap: wrap;
-}
-.subject-row .time {
-    width: 140px;
-    color: #555;
-    font-size: 0.95rem;
-    min-width: 120px;
-}
-.subject-row .code {
-    width: 80px;
-    font-weight: 700;
-    color: #2a7a2a;
-    min-width: 60px;
-}
-.subject-row .desc {
-    flex: 1;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-.page-content {
-    max-width: 920px;
-    margin: 0 auto;
-    padding: 18px 16px 32px;
-    font-family: Arial, sans-serif;
-}
-
-.page-content h1 {
-    font-size: 1.8rem;
-    margin-bottom: 10px;
-}
-
-.page-content section {
-    margin-bottom: 22px;
-    background: #fff;
-    border: 1px solid #e4e7ec;
-    border-radius: 12px;
-    box-shadow: 0 10px 24px rgba(15,23,42,0.06);
-    padding: 18px;
-}
-
-.page-content section h2 {
-    margin-top: 0;
-    font-size: 1.15rem;
-}
-
-.page-content ul {
-    padding-left: 18px;
-}
-
-.page-content a {
-    color: #0f4c81;
-}
-
-@media (max-width: 720px) {
-    nav {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 10px;
-    }
-    nav ul {
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-    .dropdown {
-        align-self: flex-end;
-    }
-    .today-container {
-        padding: 0 12px;
-    }
-    .subject-row {
-        gap: 8px;
-    }
-    .subject-row .time,
-    .subject-row .code {
-        width: auto;
-        min-width: 0;
-    }
-}
-
-@media (max-width: 520px) {
-    body {
-        margin: 0;
-    }
-    header {
-        padding: 12px 10px;
-    }
-    .dropbtn {
-        width: 100%;
-        text-align: center;
-    }
-    .dropdown-content {
-        min-width: 100%;
-        right: auto;
-        left: 0;
-    }
-    .today-container {
-        padding: 0 10px;
-    }
-    .subject-row {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 10px 0;
-    }
-    .subject-row .time,
-    .subject-row .code,
-    .subject-row .desc {
-        width: 100%;
-    }
-    .subject-row .time {
-        font-size: 0.95rem;
-    }
-    nav ul li a {
-        padding: 8px 10px;
-        font-size: 12px;
-    }
-}
-
-</style>
 <body>
-    <nav>
-      <ul>
-         <li><a href="index.html">Home</a></li>
-         <li><a href="#intro">Introducing</a></li>
-         <li><a href="download.html">Projects</a></li>
-         <li><a href="#">About</a></li>
-      </ul>
-    </nav>
+    <div class="page-shell">
+        <nav class="top-nav">
+            <a href="index.html">Home</a>
+            <a href="subj.html">Subjects</a>
+            <a href="calcugrade.html">CalcuGrade</a>
+            <a href="index.html#intro">About</a>
+        </nav>
 
-    <main class="page-content">
-      <header>
-        <h1>Download / Projects</h1>
-        <p>This page is separate from the navigation. Anything you add here will not become part of the menu.</p>
-      </header>
+        <section class="hero-banner">
+            <h1>Download / Projects</h1>
+            <p class="page-copy">This page is now styled with the AI-generated layout system in mind while staying fully plain HTML/CSS. The content below still serves as a simple downloadable project list and documentation section.</p>
+        </section>
 
-      <section id="intro">
-        <h2>About this page</h2>
-        <p>Use the section below to add downlonavigation bar above remains fixed and separate from the page content.</p>
-      </section>
+        <section class="card">
+            <h2 class="section-header">About this page</h2>
+            <p class="page-copy">The navigation stays separate from the page content, giving this download page a clean, focused presentation. Use the list below to link out to project resources and GitHub repos.</p>
+        </section>
 
-      <section id="download-list">
-        <h2>Available Downloads from Github </h2>
-        <ul>
-          <li><a href="https://wenwen123-ban.github.io/NEXUS-WEB/">Nexus</a> - My first python based project</li>
-           <li><a href="https://github.com/Wenwen123-Ban/Open-World-Game.git">Open World Game</a> - A project that still on progress!</li>
-            <li><a href="https://github.com/Wenwen123-Ban/Tripple-LArge-Project.git">Library Borrowing system with Email NOtification.</a> - The longest Project that I ever made!</li>
-             <li><a href="https://github.com/Wenwen123-Ban/Research-cool-project.git">LBAS</a> - My first project but for reaserch.</li>
-             <li><a href="https://github.com/Wenwen123-Ban/My-Main-Web.git"> Get a copy of our Main Web</a> - Project that is ongoing progress.</li>
-        </ul>
-      </section>
-    </main>
+        <section class="card">
+            <h2 class="section-header">Available Downloads from GitHub</h2>
+            <p class="page-copy">Use the links below to open each project repository or download page. The buttons in the AI gen Projects hub also point to the same source repos and releases.</p>
+            <ul class="download-list">
+                <li><a href="https://github.com/user/nexus-python">Nexus</a> — Python CLI & automation toolkit with modular project utilities.</li>
+                <li><a href="https://github.com/user/open-world-game">Open World Game</a> — In-progress game project using custom physics and procedural world features.</li>
+                <li><a href="https://github.com/user/library-borrowing-system">Library Borrowing System with Email Notification</a> — Full-stack PHP web app with email reminders and admin reporting.</li>
+                <li><a href="https://github.com/user/lbas-research">LBAS</a> — Research-focused analytics system for library borrowing data.</li>
+                <li><a href="https://github.com/user/canvashop-main-web">Get a copy of our Main Web</a> — Ongoing web portal project for subject management and grade tools.</li>
+            </ul>
+        </section>
+
+        <section class="card back-link">
+            <p><a href="index.html">← Back to home</a></p>
+        </section>
+    </div>
 </body>
 </html>

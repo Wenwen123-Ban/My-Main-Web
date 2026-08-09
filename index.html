@@ -1,391 +1,211 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Main</title>
-    <style>
-        .dropbtn {
-  background-color: #04AA6D;
-  color: white;
-  padding: 8px 12px;
-  font-size: 13px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-/* The container <div> - needed to position the dropdown content */
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-/* Dropdown Content (Hidden by Default) */
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    max-width: calc(100vw - 24px); /* never exceed the viewport width */
-    right: 0; /* align the dropdown's right edge with the button's right edge */
-    left: auto;
-    max-height: 180px; /* show up to five items, then scroll */
-    overflow-y: auto;
-    box-shadow: 0px 6px 12px 0px rgba(0,0,0,0.15);
-    z-index: 1;
-    border-radius: 4px;
-}
-
-/* Links inside the dropdown */
-.dropdown-content a {
-    color: black;
-    padding: 8px 12px;
-    text-decoration: none;
-    display: block;
-    font-size: 13px;
-    height: 36px; /* fixed item height to ensure exactly five visible */
-    box-sizing: border-box;
-    line-height: 20px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #ddd;}
-
-/* Small custom scrollbar for dropdown */
-.dropdown-content::-webkit-scrollbar { width: 8px; }
-.dropdown-content::-webkit-scrollbar-thumb { background-color: rgba(0,0,0,0.15); border-radius: 4px; }
-
-/* Featured subjects scrollable container */
-#featured-subject {
-    max-height: 180px; /* show up to five items, then scroll */
-    overflow-y: auto;
-    border-radius: 4px;
-}
-
-/* Custom scrollbar for featured subjects */
-#featured-subject::-webkit-scrollbar { width: 8px; }
-#featured-subject::-webkit-scrollbar-thumb { background-color: rgba(0,0,0,0.15); border-radius: 4px; }
-
-/* Show the dropdown menu when active */
-.dropdown-content.active {display: block;}
-
-/* Change the background color of the dropdown button when active */
-.dropbtn.active {background-color: #3e8e41;}
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #333;
-    padding: 6px 12px;
-}
-
-header {
-    max-width: 980px;
-    margin: 0 auto 18px; /* push nav below header */
-    padding: 10px 12px;
-    box-sizing: border-box;
-    position: relative;
-}
-
-#semester {
-    margin-top: 6px;
-    color: #333;
-    font-weight: 600;
-    text-align: center;
-}
-
-.page-semester{max-width:980px;margin:8px auto 18px;text-align:center;color:#333;font-weight:600}
-
-/* Style the list to look like a horizontal menu */
-nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    gap: 20px;
-}
-
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-size: 13px;
-    padding: 6px 10px;
-    border-radius: 3px;
-    transition: background-color 0.2s ease;
-}
-
-nav ul li a:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-}
-
-/* Today's subjects styles */
-.today-container {
-    max-width: 800px;
-    margin: 12px auto;
-    padding: 0 16px;
-    font-family: Arial, sans-serif;
-}
-.subject-row {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
-    flex-wrap: wrap;
-}
-.subject-row .time {
-    width: 140px;
-    color: #555;
-    font-size: 0.95rem;
-    min-width: 120px;
-}
-.subject-row .code {
-    width: 80px;
-    font-weight: 700;
-    color: #2a7a2a;
-    min-width: 60px;
-}
-.subject-row .desc {
-    flex: 1;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-@media (max-width: 720px) {
-    nav {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 10px;
-    }
-    nav ul {
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-    .dropdown {
-        align-self: flex-end;
-    }
-    .today-container {
-        padding: 0 12px;
-    }
-    .subject-row {
-        gap: 8px;
-    }
-    .subject-row .time,
-    .subject-row .code {
-        width: auto;
-        min-width: 0;
-    }
-}
-
-@media (max-width: 520px) {
-    body {
-        margin: 0;
-    }
-    header {
-        padding: 12px 10px;
-    }
-    .dropbtn {
-        width: 100%;
-        text-align: center;
-    }
-    .dropdown-content {
-        min-width: 100%;
-        right: auto;
-        left: 0;
-    }
-    .today-container {
-        padding: 0 10px;
-    }
-    .subject-row {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 10px 0;
-    }
-    .subject-row .time,
-    .subject-row .code,
-    .subject-row .desc {
-        width: 100%;
-    }
-    .subject-row .time {
-        font-size: 0.95rem;
-    }
-    nav ul li a {
-        padding: 8px 10px;
-        font-size: 12px;
-    }
-}
-
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1 class="heading" style="color: green; text-align: center;" >Welcome to the Main Page</h1>
-        <p class="text" style="text-align: center;">Multi Purpose Project</p>
-        <div id="date-time" style="font-weight: bold; margin-bottom: 6px;"></div>
-    </header>
+    <div class="page-shell">
+        <header class="app-header">
+            <div class="header-left">
+                <div>
+                    <p class="brand-label">2nd Year BSIT Student Portal</p>
+                    <h1 class="app-title">My Main Web</h1>
+                </div>
+                <div class="header-meta">
+                    <div class="clock-widget">
+                        <span id="date-time">Loading…</span>
+                    </div>
+                    <div class="day-pill" id="active-day">Active: —</div>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <a href="index.html">Home</a>
+                <a href="#intro">About</a>
+                <a href="download.html">Projects</a>
+                <a href="subj.html">Subjects</a>
+                <a href="calcugrade.html">CalcuGrade</a>
+            </nav>
+        </header>
 
-  <nav>
-      <ul>
-         <li><a href="index.html">Home</a></li>
-         <li><a href="#intro">Introducing</a></li>
-         <li><a href="download.html">Projects</a></li>
-         <li><a href="#">About</a></li>
-      </ul>
-      <div class="dropdown">
-         <button class="dropbtn">Menu</button>
-         <div class="dropdown-content">
-             <a href="subj.html">Subjects List</a>
-             <a href="calcugrade.html">CalcuGrade</a>
-             <a href="#">Link 3</a>
-             <a href="#">Link 1</a>
-             <a href="#">Link 2</a>
-             <a href="#">Link 3</a>
-         </div>
-     </div>
-  </nav>
+        <section class="hero-grid">
+            <article class="hero-card">
+                <p class="eyebrow" id="semester">1st Semester of 2nd Year IT 2026–2027</p>
+                <h2>Subject Schedule Dashboard</h2>
+                <p>Review today’s class timetable, track your next upcoming lesson, and jump to the full schedule or project resources instantly.</p>
+                <div class="hero-actions">
+                    <a class="button button-primary" href="subj.html">View Full Timetable</a>
+                    <a class="button button-secondary" href="download.html">View Projects</a>
+                </div>
+            </article>
 
-        <!-- Semester title moved below the nav so it no longer overlaps -->
-        <div id="semester" class="page-semester" aria-hidden="false">Multiple semesters</div>
+            <aside class="summary-card">
+                <div class="summary-pill">
+                    <span id="summary-day-pill">Active: Thursday</span>
+                    <span id="today-count">0 Classes Today</span>
+                </div>
+                <div class="upcoming-box">
+                    <p class="upcoming-label">Next Upcoming Class Today</p>
+                    <div class="next-class">
+                        <div class="subject-pill subject-pill-default" id="next-class-code">TBA</div>
+                        <p class="next-title" id="next-class-name">No upcoming class</p>
+                        <p class="next-time" id="next-class-time">—</p>
+                        <div class="next-meta">
+                            <span id="next-class-room">Room —</span>
+                            <span id="next-class-prof">Instructor —</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </section>
 
-    <section id="featured" class="today-container" style="display:none;">
-        <hr>
-        <h2>Featured Subjects</h2>
-        <div id="featured-subject"></div>
-    </section>
+        <section class="section-card">
+            <div class="section-header">
+                <h2>Today's Schedule</h2>
+                <p>Live read-only class cards, drawn from <code>subjects.json</code>.</p>
+            </div>
+            <div id="today-subjects" class="schedule-grid"></div>
+        </section>
 
-    <section id="today" class="today-container">
-        <hr>
-        <h2>TODAY</h2>
-        <div id="today-subjects">
-            <!-- Today's subjects will be rendered here -->
-        </div>
-    </section>
+        <section id="intro" class="section-card">
+            <div class="section-header">
+                <h2>Introduction</h2>
+                <p>Built from the AI Studio prototype, but rendered as plain HTML, CSS, and JavaScript.</p>
+            </div>
+            <p>Check the full schedule and project links using the buttons above.</p>
+        </section>
 
- 
-  <section id="intro">
-    <hr>
-      <h1>Introduction</h1>
-      <p>Welcome to my document project...</p>
-   </section>
-
-  <section id="features">
-    <hr>
-      <h2>Features</h2>
-      <p>Here is what this project can do...</p> 
-  </section>
+        <section id="features" class="section-card">
+            <div class="section-header">
+                <h2>Features</h2>
+                <p>Modern responsive dashboard layout with schedule cards, summary pills, and next-class view.</p>
+            </div>
+            <ul>
+                <li>Fixed top header with clock and active day</li>
+                <li>2-column hero grid on desktop</li>
+                <li>Responsive schedule cards</li>
+                <li>Semantic link buttons to subjects and downloads</li>
+            </ul>
+        </section>
+    </div>
 
     <script src="script.js"></script>
-<script>
-    function updateDateTime() {
+    <script>
+function updateDateTime() {
     const now = new Date();
-    // This turns the date/time into a readable string
-    document.getElementById("date-time").innerHTML = now.toLocaleString();
+    document.getElementById('date-time').textContent = now.toLocaleString();
 }
 
-// Update the time immediately when the page loads
 updateDateTime();
-
-// Run the function every 1000 milliseconds (1 second)
 setInterval(updateDateTime, 1000);
 
-// Dropdown button click functionality
-const dropbtn = document.querySelector('.dropbtn');
-const dropdownContent = document.querySelector('.dropdown-content');
+function getSubjectPillClass(code) {
+    if (!code) return 'subject-pill-default';
+    const normalized = code.toUpperCase();
+    if (normalized.startsWith('GE')) return 'subject-pill-yellow';
+    if (normalized.startsWith('PT')) return 'subject-pill-orange';
+    if (normalized.startsWith('JEEP')) return 'subject-pill-pink';
+    return 'subject-pill-default';
+}
 
-if (dropbtn) {
-    dropbtn.addEventListener('click', function() {
-        dropdownContent.classList.toggle('active');
-        dropbtn.classList.toggle('active');
+function renderTodaySubjectCards(subjects) {
+    const container = document.getElementById('today-subjects');
+    container.innerHTML = '';
+    if (!subjects.length) {
+        container.innerHTML = '<p style="color:#94a3b8;">No subjects scheduled for today.</p>';
+        return;
+    }
+
+    subjects.forEach((s) => {
+        const card = document.createElement('article');
+        card.className = 'subject-card';
+        const codeClass = getSubjectPillClass(s.code);
+        const subjectCode = `<span class="subject-pill ${codeClass}">${s.code || 'TBA'}</span>`;
+        card.innerHTML = `
+            <div class="subject-row">
+                <div class="time">${minutesToDisplay(s.time_start, s.time_start_is_am)} – ${minutesToDisplay(s.time_end, s.time_end_is_am)}</div>
+                ${subjectCode}
+            </div>
+            <div>
+                <h3 class="subject-name">${s.description || 'No description available'}</h3>
+                <p class="subject-desc">${s.description || 'Subject details unavailable.'}</p>
+            </div>
+            <div class="card-meta">
+                <span>Room: ${s.room || 'TBA'}</span>
+                <span>Instructor: ${s.instructor || 'TBA'}</span>
+            </div>
+        `;
+        container.appendChild(card);
     });
 }
 
-// Close dropdown when clicking elsewhere on the page
-document.addEventListener('click', function(event) {
-    if (!event.target.closest('.dropdown')) {
-        dropdownContent.classList.remove('active');
-        dropbtn.classList.remove('active');
-    }
-});
+function updateSummaryPanel(todaySubjects) {
+    const activeDayElement = document.getElementById('active-day');
+    const summaryDay = document.getElementById('summary-day-pill');
+    const countElement = document.getElementById('today-count');
+    const nextCode = document.getElementById('next-class-code');
+    const nextName = document.getElementById('next-class-name');
+    const nextTime = document.getElementById('next-class-time');
+    const nextRoom = document.getElementById('next-class-room');
+    const nextProf = document.getElementById('next-class-prof');
 
-// Load and render today's subjects (features + schedule across visible groups)
-async function loadTodaySubjects() {
-    const container = document.getElementById('today-subjects');
-    if (!container) return;
+    const now = new Date();
+    const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const dayName = dayNames[now.getDay()] || 'Today';
 
-    const data = await fetchSubjectsData();
-    if (!data) { container.innerHTML = '<p>Failed to load subjects.json.</p>'; return; }
+    activeDayElement.textContent = `Active: ${dayName}`;
+    summaryDay.textContent = `Active: ${dayName}`;
+    countElement.textContent = `${todaySubjects.length} Classes Today`;
 
-    const groups = Array.isArray(data.semester_groups) ? data.semester_groups : [data];
-    const featureGroups = groups.filter(g => g.show_index_feature && Array.isArray(g.subjects));
-    const scheduleGroups = groups.filter(g => g.show_groups && Array.isArray(g.subjects));
-
-    const semEl = document.getElementById('semester');
-    if (semEl) {
-        semEl.textContent = featureGroups.length === 1 ? featureGroups[0].semester : (scheduleGroups.length === 1 ? scheduleGroups[0].semester : 'Multiple semesters');
-    }
-
-    const featuredSection = document.getElementById('featured');
-    const featuredContainer = document.getElementById('featured-subject');
-    featuredContainer.innerHTML = '';
-
-    if (featureGroups.length) {
-        featuredSection.style.display = 'block';
-        const featuredList = featureGroups.flatMap(group => {
-            return (group.subjects || []).map(s => ({ ...s, semester: group.semester, isFeatured: s.id === group.featured_subject_id }));
-        }).sort((a, b) => timeToMinutes(a.time_start, a.time_start_is_am) - timeToMinutes(b.time_start, b.time_start_is_am));
-
-        if (!featuredList.length) {
-            featuredSection.style.display = 'none';
-        } else {
-            featuredList.forEach(subject => {
-                const block = document.createElement('div');
-                block.className = 'subject-row';
-                const featuredNote = subject.isFeatured ? ' <strong>(featured)</strong>' : '';
-                block.innerHTML = `\n                    <div class="time">${minutesToDisplay(subject.time_start, subject.time_start_is_am)} – ${minutesToDisplay(subject.time_end, subject.time_end_is_am)}</div>\n                    <div class="code">${subject.code}</div>\n                    <div class="desc"><strong>${subject.semester}</strong>: ${subject.description}${featuredNote}</div>`;
-                featuredContainer.appendChild(block);
-            });
-        }
-    } else {
-        featuredSection.style.display = 'none';
-    }
-
-    if (!scheduleGroups.length) {
-        container.innerHTML = '<p>No subject schedule available for the active semester.</p>';
+    if (!todaySubjects.length) {
+        nextCode.textContent = 'TBA';
+        nextCode.className = 'subject-pill subject-pill-default';
+        nextName.textContent = 'No upcoming class';
+        nextTime.textContent = '—';
+        nextRoom.textContent = 'Room —';
+        nextProf.textContent = 'Instructor —';
         return;
     }
 
-    const todayCode = getTodayCode();
-    if (!todayCode) {
-        container.innerHTML = '<p>No classes today — it\'s the weekend.</p>';
-        return;
-    }
+    const nowMinutes = now.getHours() * 60 + now.getMinutes();
+    const upcoming = todaySubjects.find((s) => timeToMinutes(s.time_start, s.time_start_is_am) >= nowMinutes) || todaySubjects[0];
 
-    const allTodaySubjects = scheduleGroups.flatMap(group => {
-        return (group.subjects || [])
-            .filter(s => s.day === todayCode)
-            .map(s => ({ ...s, semester: group.semester }));
-    }).sort((a, b) => timeToMinutes(a.time_start, a.time_start_is_am) - timeToMinutes(b.time_start, b.time_start_is_am));
-
-    if (!allTodaySubjects.length) {
-        container.innerHTML = '<p>No subjects registered for today.</p>';
-        return;
-    }
-
-    container.innerHTML = allTodaySubjects.map(s => `\n        <div class="subject-row">\n            <span class="time">${minutesToDisplay(s.time_start, s.time_start_is_am)} – ${minutesToDisplay(s.time_end, s.time_end_is_am)}</span>\n            <span class="code">${s.code}</span>\n            <span class="desc">${s.description} <em>(${s.semester})</em></span>\n        </div>`).join('');
+    nextCode.textContent = upcoming.code || 'TBA';
+    nextCode.className = `subject-pill ${getSubjectPillClass(upcoming.code)}`;
+    nextName.textContent = upcoming.description || 'Next class';
+    nextTime.textContent = `${minutesToDisplay(upcoming.time_start, upcoming.time_start_is_am)} – ${minutesToDisplay(upcoming.time_end, upcoming.time_end_is_am)}`;
+    nextRoom.textContent = `Room: ${upcoming.room || 'TBA'}`;
+    nextProf.textContent = `Instructor: ${upcoming.instructor || 'TBA'}`;
 }
 
-// Ensure subjects and other UI load after DOM ready
-document.addEventListener('DOMContentLoaded', function () {
+async function loadTodaySubjects() {
+    const data = await fetchSubjectsData();
+    if (!data) {
+        document.getElementById('today-subjects').innerHTML = '<p style="color:#f97316;">Unable to load subjects.json.</p>';
+        return;
+    }
+
+    const groups = Array.isArray(data.semester_groups) ? data.semester_groups : [data];
+    const scheduleGroups = groups.filter((g) => g.show_groups && Array.isArray(g.subjects));
+    const allSubjects = scheduleGroups.flatMap((group) => (group.subjects || []).map((s) => ({ ...s, semester: group.semester })));
+    const todayCode = getTodayCode();
+    const todaySubjects = allSubjects.filter((s) => s.day === todayCode)
+        .sort((a, b) => timeToMinutes(a.time_start, a.time_start_is_am) - timeToMinutes(b.time_start, b.time_start_is_am));
+
+    const semesterEl = document.getElementById('semester');
+    if (semesterEl) {
+        semesterEl.textContent = scheduleGroups.length === 1 ? scheduleGroups[0].semester : '1st Semester of 2nd Year IT 2026–2027';
+    }
+
+    updateSummaryPanel(todaySubjects);
+    renderTodaySubjectCards(todaySubjects);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
     loadTodaySubjects();
 });
-</script>
+    </script>
 </body>
 </html>

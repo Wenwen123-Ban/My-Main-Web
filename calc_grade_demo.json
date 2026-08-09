@@ -1,5 +1,5 @@
 {
-    "calcugrade_enabled": true,
+    "calcugrade_enabled": false,
     "is_demo": true,
     "demo_message": "Public demo grade records for open-source demonstration.",
     "semester_records": [

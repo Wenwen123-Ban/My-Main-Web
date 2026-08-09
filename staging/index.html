@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="dashboard-shell">
+    <header class="dashboard-header">
+      <div class="header-brand">
+        <div class="brand-badge">BSIT 2nd Year • 1st Semester 2026–2027</div>
+        <h1 class="app-title">Subject Schedule Portal</h1>
+      </div>
+      <div class="header-actions">
+        <span class="clock-pill" id="live-clock">Loading…</span>
+        <span class="day-pill" id="active-day-pill">Active: Thursday</span>
+        <nav class="header-nav">
+          <a href="#">Home</a>
+          <a href="#today">Schedule</a>
+          <a href="#">Projects</a>
+          <a href="#">Grades</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero-grid">
+        <article class="hero-card">
+          <p class="hero-tag">1st Semester of 2nd Year IT 2026–2027</p>
+          <h2>Centralized schedule and project dashboard</h2>
+          <p>Review today’s class timetable, track your next upcoming lesson, and jump to the full schedule or project resources instantly.</p>
+          <div class="hero-buttons">
+            <a class="button button-primary" href="#today">View Full Timetable</a>
+            <a class="button button-secondary" href="#">View Projects</a>
+          </div>
+        </article>
+
+        <aside class="summary-card">
+          <div class="summary-header">
+            <div>
+              <p>Day Summary</p>
+              <strong id="summary-active-day">Active: Thursday</strong>
+            </div>
+            <span class="summary-pill" id="today-count">0 Classes Today</span>
+          </div>
+
+          <div class="next-card">
+            <p class="next-label">NEXT UPCOMING CLASS TODAY</p>
+            <span class="subject-pill subject-pill-yellow" id="next-class-code">GE2</span>
+            <h3 id="next-class-title">General Education 2</h3>
+            <p id="next-class-time">10:00 AM – 11:30 AM</p>
+            <div class="next-meta">
+              <span id="next-class-room">Room 201</span>
+              <span id="next-class-prof">Prof. Santos</span>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <section id="today" class="schedule-section">
+        <div class="schedule-header">
+          <div>
+            <h2>Today’s Schedule</h2>
+            <p>Live classes for the selected day.</p>
+          </div>
+        </div>
+
+        <div id="today-schedule" class="schedule-grid">
+          <article class="subject-card">
+            <div class="subject-row">
+              <span class="subject-pill subject-pill-yellow">GE2</span>
+              <p class="subject-time">10:00 AM – 11:30 AM</p>
+            </div>
+            <h3 class="subject-title">General Education 2</h3>
+            <p class="subject-desc">A foundational lecture session for humanities and communication skills.</p>
+            <div class="subject-meta">
+              <span>Room 201</span>
+              <span>Prof. Santos</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-card">
+        <h2>About this Staging Page</h2>
+        <p>This page is a standalone plain HTML+CSS version of the AI Studio `HomeDashboard` component from the React/TypeScript source.</p>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
