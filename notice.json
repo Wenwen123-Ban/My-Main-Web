@@ -13,5 +13,20 @@
         }
       ]
     }
+  ],
+  "notices": [
+    {
+      "title": "How to update this notice board",
+      "message": "Edit notice.json in the project folder to add, remove, or update notices. Keep each notice inside the notices array, set active to true to show it, and refresh the Home page after saving.",
+      "date": "2026-08-09",
+      "label": "Guide",
+      "active": true,
+      "actions": [
+        {
+          "label": "Open notice.json",
+          "href": "notice.json"
+        }
+      ]
+    }
   ]
 }
