@@ -120,3 +120,43 @@ async function loadSubjectsPreferLocal() {
     const remote = await fetchFromJSON();
     return remote;
 }
+
+const DAY_LABELS = { M: 'Monday', T: 'Tuesday', W: 'Wednesday', TH: 'Thursday', F: 'Friday', S: 'Saturday', SU: 'Sunday' };
+const FULL_DAY_ORDER = { M: 1, T: 2, W: 3, TH: 4, F: 5, S: 6, SU: 7 };
+
+function normalizeSubject(subject, group) {
+    return {
+        ...subject,
+        semester: group?.semester || 'Unassigned semester',
+        activeSemester: Boolean(group?.active),
+        dayLabel: DAY_LABELS[subject.day] || subject.day || 'Unscheduled',
+        startMinutes: timeToMinutes(subject.time_start, subject.time_start_is_am),
+        endMinutes: timeToMinutes(subject.time_end, subject.time_end_is_am)
+    };
+}
+
+function flattenSubjectGroups(data, options = {}) {
+    const groups = Array.isArray(data?.semester_groups) ? data.semester_groups : (data ? [data] : []);
+    const visibleOnly = options.visibleOnly !== false;
+    return groups
+        .filter(group => !visibleOnly || group.show_groups || group.show_index_feature || group.active)
+        .flatMap(group => (Array.isArray(group.subjects) ? group.subjects : []).map(subject => normalizeSubject(subject, group)));
+}
+
+function compareSubjects(a, b, sortBy = 'day-time') {
+    const codeCompare = String(a.code || '').localeCompare(String(b.code || ''), undefined, { numeric: true });
+    const titleCompare = String(a.description || '').localeCompare(String(b.description || ''), undefined, { numeric: true });
+
+    if (sortBy === 'code') return codeCompare || titleCompare;
+    if (sortBy === 'title') return titleCompare || codeCompare;
+    if (sortBy === 'units') return (Number(b.units || 0) - Number(a.units || 0)) || codeCompare;
+    if (sortBy === 'semester') return String(a.semester).localeCompare(String(b.semester)) || codeCompare;
+
+    return (FULL_DAY_ORDER[a.day] || 99) - (FULL_DAY_ORDER[b.day] || 99)
+        || a.startMinutes - b.startMinutes
+        || codeCompare;
+}
+
+function uniqueValues(items, key) {
+    return [...new Set(items.map(item => item[key]).filter(Boolean))].sort((a, b) => String(a).localeCompare(String(b), undefined, { numeric: true }));
+}

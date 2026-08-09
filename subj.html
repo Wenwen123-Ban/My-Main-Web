@@ -3,137 +3,120 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Subjects — Read Only</title>
+  <title>Subject Management</title>
   <style>
-    body{font-family: Inter, Arial, sans-serif;margin:18px;background:#f2f5f9;color:#202124}
-    .container{max-width:980px;margin:0 auto;padding:0 12px}
-    h1{margin-bottom:8px;font-size:1.75rem;color:#16325c}
-    .semester{font-weight:700;margin-bottom:16px;color:#475569}
-    .semester-group{background:#ffffff;border:1px solid #dde3ea;border-radius:16px;box-shadow:0 12px 30px rgba(18,38,63,0.07);margin-bottom:20px;overflow:hidden}
-    .semester-title{background:#eef4fb;color:#0f4c81;font-weight:700;padding:14px 18px;border-bottom:1px solid #d7e3ef}
-    .day-block{margin:0}
-    .day-header{background:#f6f9fd;color:#374151;padding:10px 16px;font-weight:700;border-bottom:1px solid #e2e8f0;text-transform:uppercase;letter-spacing:0.06em;font-size:.92rem}
-    .subject-row{display:grid;grid-template-columns:150px 100px 1fr;gap:12px;align-items:center;padding:12px 16px;border-bottom:1px solid #f0f4f8}
-    .subject-row:nth-child(even){background:#f8fbff}
-    .subject-row:last-child{border-bottom:none}
-    .subject-row .time{color:#3b4754;font-size:.95rem}
-    .subject-row .code{color:#0f5d3b;font-weight:700}
-    .subject-row .desc{color:#31393f}
-    .empty-row{padding:12px 16px;color:#64748b;background:#f9fbfe}
-    .note{color:#475569;margin-top:18px;font-size:.95rem}
-    a{text-decoration:none;color:#0f4c81}
-    a:hover{text-decoration:underline}
-    
-    /* Responsive adjustments */
-    @media (max-width: 800px) {
-      .semester-group{border-radius:12px}
-      .subject-row{grid-template-columns:130px 90px 1fr}
-      .semester-title{padding:12px}
-    }
-
-    @media (max-width: 680px) {
-      .container{padding:0 14px}
-      .semester-title{font-size:1rem;padding:12px}
-      .subject-row{grid-template-columns:120px 80px 1fr}
-      .subject-row .time,.subject-row .code{width:auto}
-      .day-header{font-size:.88rem;padding:10px 14px}
-    }
-
-    @media (max-width: 560px) {
-      .container{padding:0 10px}
-      .semester-title{font-size:1rem;padding:10px}
-      .subject-row{grid-template-columns:1fr;gap:8px;padding:10px}
-      .subject-row .time,.subject-row .code{width:auto}
-      .day-header{font-size:.86rem;padding:8px 12px}
-      .empty-row{padding:10px}
-    }
-
-    @media (max-width: 420px) {
-      body{margin:12px 8px}
-      h1{font-size:1.5rem}
-      .semester-title{font-size:.98rem;padding:10px}
-      .subject-row{padding:10px 10px;gap:10px}
-      .subject-row .time,.subject-row .code{font-size:.92rem}
-      .day-header{font-size:.82rem;padding:8px 10px}
-      .empty-row{padding:10px}
-    }
+    body{font-family:Inter,Arial,sans-serif;margin:0;background:#eef3f8;color:#202124}.container{max-width:1120px;margin:0 auto;padding:24px 16px}h1{margin:.2rem 0;color:#12345d}.lead{color:#526070;margin-top:0}.topbar{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.button{display:inline-block;background:#0f6b4f;color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700}.button.secondary{background:#29496b}.panel,.subject-card,.stat{background:#fff;border:1px solid #dbe4ee;border-radius:18px;box-shadow:0 12px 28px rgba(16,42,67,.07)}.panel{padding:16px;margin:18px 0}.controls{display:grid;grid-template-columns:2fr repeat(4,1fr);gap:12px}.field{display:flex;flex-direction:column;gap:6px;font-weight:700;color:#344256}.field input,.field select{padding:10px;border:1px solid #cdd7e3;border-radius:10px;background:#fbfdff}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}.stat{padding:14px}.stat strong{display:block;font-size:1.65rem;color:#0f6b4f}.layout{display:grid;grid-template-columns:2fr 1fr;gap:16px}.subject-grid{display:grid;gap:12px}.subject-card{padding:16px}.subject-card header{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.code{font-size:1.15rem;font-weight:800;color:#0f4c81}.badge{display:inline-block;background:#e8f4ff;color:#0f4c81;border-radius:999px;padding:4px 9px;font-size:.78rem;font-weight:700}.meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px;color:#465668}.empty{padding:24px;text-align:center;color:#64748b}.day-group{margin-bottom:18px}.day-title{font-size:.95rem;text-transform:uppercase;letter-spacing:.08em;color:#526070}.schema-box{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;background:#f8fafc;border:1px dashed #b8c7d8;border-radius:14px;padding:12px;font-size:.9rem;overflow:auto}.note{color:#526070}a{color:#0f4c81}@media(max-width:900px){.controls,.layout,.stats{grid-template-columns:1fr 1fr}.controls .field:first-child{grid-column:1/-1}}@media(max-width:620px){.container{padding:18px 10px}.controls,.layout,.stats,.meta{grid-template-columns:1fr}.subject-card header{flex-direction:column}}
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Subject Schedule</h1>
-    <div id="semester" class="semester"></div>
-    <div id="listArea">Loading subjects…</div>
-    <p class="note">This page is read-only. Edit <strong>subjects.json</strong> manually to change the lists.</p>
-    <p><a href="index.html">Back to Home</a></p>
-  </div>
+  <main class="container">
+    <div class="topbar">
+      <div>
+        <h1>Subject Management</h1>
+        <p class="lead">A GitHub Pages friendly schedule dashboard powered by <strong>subjects.json</strong> and documented by <strong>subjects.schema.json</strong>.</p>
+      </div>
+      <p><a class="button secondary" href="index.html">Back to Home</a> <a class="button" href="subjects.json">Open JSON</a></p>
+    </div>
+
+    <section class="panel" aria-label="Subject filters">
+      <div class="controls">
+        <label class="field">Search<input id="searchInput" type="search" placeholder="Code, title, room, instructor..."></label>
+        <label class="field">Semester<select id="semesterFilter"><option value="all">All semesters</option></select></label>
+        <label class="field">Day<select id="dayFilter"><option value="all">All days</option></select></label>
+        <label class="field">Display<select id="displayMode"><option value="cards">Cards</option><option value="days">Group by day</option><option value="compact">Compact list</option></select></label>
+        <label class="field">Sort<select id="sortSelect"><option value="day-time">Day + time</option><option value="code">Subject code</option><option value="title">Title</option><option value="units">Units</option><option value="semester">Semester</option></select></label>
+      </div>
+    </section>
+
+    <section class="stats" aria-label="Subject summary">
+      <div class="stat"><strong id="subjectCount">0</strong>meetings</div>
+      <div class="stat"><strong id="courseCount">0</strong>unique subjects</div>
+      <div class="stat"><strong id="unitCount">0</strong>listed units</div>
+      <div class="stat"><strong id="lastUpdated">—</strong>last updated</div>
+    </section>
+
+    <div class="layout">
+      <section id="listArea" class="subject-grid">Loading subjects…</section>
+      <aside class="panel">
+        <h2>JSON schema guide</h2>
+        <p class="note">Edit the static data file to manage the site. The schema defines valid semesters, visibility flags, days, times, and optional room/instructor/unit metadata.</p>
+        <div class="schema-box">{
+  "$schema": "subjects.schema.json",
+  "semester_groups": [
+    { "semester": "...", "show_groups": true, "subjects": [] }
+  ]
+}</div>
+        <p><a href="subjects.schema.json">View schema</a></p>
+      </aside>
+    </div>
+  </main>
 
   <script src="script.js"></script>
   <script>
-    const DAY_NAMES = { M: 'MONDAY', T: 'TUESDAY', W: 'WEDNESDAY', TH: 'THURSDAY', F: 'FRIDAY' };
-    const DAY_KEYS = ['M','T','W','TH','F'];
+    const state = { subjects: [], filtered: [] };
+    const els = {};
 
-    async function renderReadOnlySubjects() {
-      const listArea = document.getElementById('listArea');
-      listArea.innerHTML = '';
-
-      const data = await fetchSubjectsData();
-      if (!data) { listArea.textContent = 'Failed to load subjects.json'; return; }
-
-      const groups = Array.isArray(data.semester_groups) ? data.semester_groups.filter(g => g.show_groups && Array.isArray(g.subjects)) : [];
-      if (!groups.length) { listArea.innerHTML = '<p>No visible subject groups are enabled.</p>'; return; }
-
-      const semEl = document.getElementById('semester');
-      semEl.textContent = groups.length === 1 ? groups[0].semester : 'Multiple semesters';
-
-      groups.forEach(group => {
-        const groupCard = document.createElement('div');
-        groupCard.className = 'semester-group';
-
-        const groupTitle = document.createElement('div');
-        groupTitle.className = 'semester-title';
-        groupTitle.textContent = group.semester;
-        groupCard.appendChild(groupTitle);
-
-        const subjects = group.subjects || [];
-        const byDay = { M: [], T: [], W: [], TH: [], F: [] };
-        subjects.forEach(s => { if (byDay[s.day]) byDay[s.day].push(s); });
-
-        DAY_KEYS.forEach(key => {
-          const list = byDay[key] || [];
-          const block = document.createElement('div');
-          block.className = 'day-block';
-
-          const header = document.createElement('div');
-          header.className = 'day-header';
-          header.textContent = DAY_NAMES[key];
-          block.appendChild(header);
-
-          if (!list.length) {
-            const empty = document.createElement('div');
-            empty.className = 'empty-row';
-            empty.textContent = '(no subjects)';
-            block.appendChild(empty);
-          } else {
-            list.sort((a,b)=> timeToMinutes(a.time_start, a.time_start_is_am)-timeToMinutes(b.time_start, b.time_start_is_am));
-            list.forEach(s=>{
-              const row = document.createElement('div');
-              row.className = 'subject-row';
-              row.innerHTML = `\n                <div class="time">${minutesToDisplay(s.time_start, s.time_start_is_am)} – ${minutesToDisplay(s.time_end, s.time_end_is_am)}</div>\n                <div class="code">${s.code}</div>\n                <div class="desc">${s.description}</div>`;
-              block.appendChild(row);
-            });
-          }
-
-          groupCard.appendChild(block);
-        });
-
-        listArea.appendChild(groupCard);
-      });
-
-      
+    function subjectMatches(subject, query) {
+      if (!query) return true;
+      const haystack = [subject.code, subject.description, subject.room, subject.instructor, subject.semester, subject.dayLabel].join(' ').toLowerCase();
+      return haystack.includes(query.toLowerCase());
     }
 
-    document.addEventListener('DOMContentLoaded', renderReadOnlySubjects);
+    function renderSubject(subject, compact = false) {
+      const time = `${minutesToDisplay(subject.time_start, subject.time_start_is_am)} – ${minutesToDisplay(subject.time_end, subject.time_end_is_am)}`;
+      const details = compact ? `${subject.dayLabel}, ${time}` : `<div class="meta"><span>📅 ${subject.dayLabel}</span><span>⏰ ${time}</span><span>🏫 ${subject.room || 'TBA'}</span><span>👤 ${subject.instructor || 'TBA'}</span><span>🎓 ${subject.units || 0} units</span><span>📚 ${subject.semester}</span></div>`;
+      return `<article class="subject-card"><header><div><div class="code">${subject.code}</div><div>${subject.description}</div></div><span class="badge">${subject.dayLabel}</span></header>${compact ? `<p class="note">${details} • ${subject.semester}</p>` : details}</article>`;
+    }
+
+    function applyFilters() {
+      const query = els.search.value.trim();
+      const semester = els.semester.value;
+      const day = els.day.value;
+      const sortBy = els.sort.value;
+      state.filtered = state.subjects
+        .filter(subject => semester === 'all' || subject.semester === semester)
+        .filter(subject => day === 'all' || subject.day === day)
+        .filter(subject => subjectMatches(subject, query))
+        .sort((a, b) => compareSubjects(a, b, sortBy));
+      render();
+    }
+
+    function render() {
+      els.subjectCount.textContent = state.filtered.length;
+      els.courseCount.textContent = new Set(state.filtered.map(subject => subject.code)).size;
+      els.unitCount.textContent = [...new Map(state.filtered.map(subject => [subject.code, Number(subject.units || 0)])).values()].reduce((sum, units) => sum + units, 0);
+
+      if (!state.filtered.length) { els.list.innerHTML = '<div class="subject-card empty">No subjects match the selected filters.</div>'; return; }
+      const mode = els.display.value;
+      if (mode === 'days') {
+        els.list.innerHTML = Object.keys(FULL_DAY_ORDER).map(day => {
+          const items = state.filtered.filter(subject => subject.day === day);
+          return items.length ? `<div class="day-group"><h2 class="day-title">${DAY_LABELS[day]}</h2><div class="subject-grid">${items.map(subject => renderSubject(subject)).join('')}</div></div>` : '';
+        }).join('');
+        return;
+      }
+      els.list.innerHTML = state.filtered.map(subject => renderSubject(subject, mode === 'compact')).join('');
+    }
+
+    function populateFilters(data) {
+      uniqueValues(state.subjects, 'semester').forEach(value => els.semester.add(new Option(value, value)));
+      uniqueValues(state.subjects, 'day').sort((a, b) => (FULL_DAY_ORDER[a] || 99) - (FULL_DAY_ORDER[b] || 99)).forEach(value => els.day.add(new Option(DAY_LABELS[value] || value, value)));
+      els.lastUpdated.textContent = data.last_updated || 'unknown';
+    }
+
+    async function initSubjects() {
+      Object.assign(els, {
+        list: document.getElementById('listArea'), search: document.getElementById('searchInput'), semester: document.getElementById('semesterFilter'), day: document.getElementById('dayFilter'), display: document.getElementById('displayMode'), sort: document.getElementById('sortSelect'), subjectCount: document.getElementById('subjectCount'), courseCount: document.getElementById('courseCount'), unitCount: document.getElementById('unitCount'), lastUpdated: document.getElementById('lastUpdated')
+      });
+      const data = await fetchSubjectsData();
+      if (!data) { els.list.innerHTML = '<div class="subject-card empty">Failed to load subjects.json.</div>'; return; }
+      state.subjects = flattenSubjectGroups(data, { visibleOnly: false });
+      populateFilters(data);
+      [els.search, els.semester, els.day, els.display, els.sort].forEach(el => el.addEventListener('input', applyFilters));
+      applyFilters();
+    }
+
+    document.addEventListener('DOMContentLoaded', initSubjects);
   </script>
 </body>
 </html>
