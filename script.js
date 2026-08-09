@@ -94,23 +94,24 @@ async function fetchSubjectsData() {
     }
 }
 
+function isActiveSemesterGroup(group) {
+    return Boolean(group && group.active === true);
+}
+
 function getActiveSemesterGroup(data) {
     if (!data) return null;
     if (Array.isArray(data.semester_groups)) {
-        const exactActive = data.semester_groups.find(g => g.active);
-        if (exactActive) return exactActive;
-        const visibleGroup = data.semester_groups.find(g => g.show_groups || g.show_index_feature);
-        return visibleGroup || data.semester_groups[0] || null;
+        return data.semester_groups.find(isActiveSemesterGroup) || null;
     }
-    return data;
+    return isActiveSemesterGroup(data) ? data : null;
 }
 
 function getVisibleSemesterGroups(data) {
     if (!data) return [];
     if (Array.isArray(data.semester_groups)) {
-        return data.semester_groups.filter(g => g.show_groups || g.show_index_feature);
+        return data.semester_groups.filter(isActiveSemesterGroup);
     }
-    return [data];
+    return isActiveSemesterGroup(data) ? [data] : [];
 }
 
 // Utility to load from localStorage first, otherwise from subjects.json
@@ -137,9 +138,9 @@ function normalizeSubject(subject, group) {
 
 function flattenSubjectGroups(data, options = {}) {
     const groups = Array.isArray(data?.semester_groups) ? data.semester_groups : (data ? [data] : []);
-    const visibleOnly = options.visibleOnly !== false;
+    const includeInactive = options.includeInactive === true;
     return groups
-        .filter(group => !visibleOnly || group.show_groups || group.show_index_feature || group.active)
+        .filter(group => includeInactive || isActiveSemesterGroup(group))
         .flatMap(group => (Array.isArray(group.subjects) ? group.subjects : []).map(subject => normalizeSubject(subject, group)));
 }
 

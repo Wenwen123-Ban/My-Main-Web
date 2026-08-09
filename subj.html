@@ -149,7 +149,7 @@
       });
       const data = await fetchSubjectsData();
       if (!data) { els.list.innerHTML = '<div class="subject-card empty">Failed to load subjects.json.</div>'; return; }
-      state.subjects = flattenSubjectGroups(data, { visibleOnly: false });
+      state.subjects = flattenSubjectGroups(data);
       populateFilters(data);
       [els.search, els.semester, els.day, els.display, els.sort, els.direction].forEach(el => el.addEventListener('input', applyFilters));
       applyFilters();

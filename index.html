@@ -329,7 +329,7 @@ async function loadTodaySubjects() {
     const data = await fetchSubjectsData();
     if (!data) { container.innerHTML = '<p>Failed to load subjects.json.</p>'; return; }
 
-    const groups = Array.isArray(data.semester_groups) ? data.semester_groups : [data];
+    const groups = getVisibleSemesterGroups(data);
     const featureGroups = groups.filter(g => g.show_index_feature && Array.isArray(g.subjects));
     const scheduleGroups = groups.filter(g => g.show_groups && Array.isArray(g.subjects));
 
