@@ -25,6 +25,19 @@
           "href": "notice.json"
         }
       ]
+    },
+    {
+      "title": "More Upcoming Features",
+      "message": "Future Updates Could be Seasonal Design or Event Based coming in future updates!",
+      "date": "2026-08-09",
+      "label": "Features",
+      "active": true,
+      "actions": [
+        {
+          "label": "Open notice.json",
+          "href": "notice.json"
+        }
+      ]
     }
     
   ]
