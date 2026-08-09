@@ -5,34 +5,39 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Subject Management</title>
   <style>
-    body{font-family:Inter,Arial,sans-serif;margin:0;background:#eef3f8;color:#202124}.container{max-width:1120px;margin:0 auto;padding:24px 16px}h1{margin:.2rem 0;color:#12345d}.lead{color:#526070;margin-top:0}.topbar{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.button{display:inline-block;background:#0f6b4f;color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700}.button.secondary{background:#29496b}.panel,.subject-card,.stat{background:#fff;border:1px solid #dbe4ee;border-radius:18px;box-shadow:0 12px 28px rgba(16,42,67,.07)}.panel{padding:16px;margin:18px 0}.controls{display:grid;grid-template-columns:2fr repeat(4,1fr);gap:12px}.field{display:flex;flex-direction:column;gap:6px;font-weight:700;color:#344256}.field input,.field select{padding:10px;border:1px solid #cdd7e3;border-radius:10px;background:#fbfdff}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}.stat{padding:14px}.stat strong{display:block;font-size:1.65rem;color:#0f6b4f}.layout{display:grid;grid-template-columns:2fr 1fr;gap:16px}.subject-grid{display:grid;gap:12px}.subject-card{padding:16px}.subject-card header{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.code{font-size:1.15rem;font-weight:800;color:#0f4c81}.badge{display:inline-block;background:#e8f4ff;color:#0f4c81;border-radius:999px;padding:4px 9px;font-size:.78rem;font-weight:700}.meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px;color:#465668}.empty{padding:24px;text-align:center;color:#64748b}.day-group{margin-bottom:18px}.day-title{font-size:.95rem;text-transform:uppercase;letter-spacing:.08em;color:#526070}.schema-box{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;background:#f8fafc;border:1px dashed #b8c7d8;border-radius:14px;padding:12px;font-size:.9rem;overflow:auto}.note{color:#526070}a{color:#0f4c81}@media(max-width:900px){.controls,.layout,.stats{grid-template-columns:1fr 1fr}.controls .field:first-child{grid-column:1/-1}}@media(max-width:620px){.container{padding:18px 10px}.controls,.layout,.stats,.meta{grid-template-columns:1fr}.subject-card header{flex-direction:column}}
+    :root{--bg:#eef4ff;--ink:#14213d;--muted:#64748b;--card:#ffffff;--line:#dbe7f3;--primary:#2563eb;--primary-dark:#1e40af;--accent:#14b8a6;--warm:#f59e0b;--shadow:0 24px 60px rgba(30,64,175,.14);--radius:24px}*{box-sizing:border-box}body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;margin:0;background:radial-gradient(circle at top left,rgba(20,184,166,.18),transparent 30%),radial-gradient(circle at top right,rgba(37,99,235,.20),transparent 32%),linear-gradient(180deg,#f8fbff 0%,var(--bg) 100%);color:var(--ink);min-height:100vh}a{color:var(--primary)}.container{max-width:1180px;margin:0 auto;padding:32px 18px 46px}.hero{position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.72);border-radius:32px;padding:30px;background:linear-gradient(135deg,rgba(255,255,255,.92),rgba(239,246,255,.84));box-shadow:var(--shadow)}.hero:after{content:"";position:absolute;right:-72px;top:-88px;width:250px;height:250px;border-radius:50%;background:linear-gradient(135deg,rgba(37,99,235,.22),rgba(20,184,166,.18))}.topbar{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;flex-wrap:wrap;position:relative;z-index:1}.eyebrow{display:inline-flex;gap:8px;align-items:center;margin:0 0 10px;padding:7px 12px;border-radius:999px;background:#e0f2fe;color:#075985;font-size:.82rem;font-weight:800;letter-spacing:.03em;text-transform:uppercase}h1{margin:.15rem 0;color:#0f172a;font-size:clamp(2rem,5vw,4.15rem);line-height:.98;letter-spacing:-.055em}.lead{color:#475569;margin:.9rem 0 0;max-width:680px;font-size:1.05rem;line-height:1.7}.button{display:inline-flex;align-items:center;gap:8px;background:var(--primary);color:#fff;padding:11px 15px;border-radius:14px;text-decoration:none;font-weight:800;box-shadow:0 12px 24px rgba(37,99,235,.22)}.button.secondary{background:#0f172a}.quick-actions{display:flex;gap:10px;flex-wrap:wrap;margin:0}.panel,.subject-card,.stat,.insight-card{background:rgba(255,255,255,.88);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 16px 38px rgba(15,23,42,.07);backdrop-filter:blur(14px)}.panel{padding:18px;margin:18px 0}.controls{display:grid;grid-template-columns:minmax(220px,2fr) repeat(5,minmax(130px,1fr));gap:12px}.field{display:flex;flex-direction:column;gap:7px;font-weight:800;color:#334155;font-size:.86rem}.field input,.field select{padding:12px 13px;border:1px solid #cbd5e1;border-radius:14px;background:#fbfdff;color:#0f172a;font:inherit;font-weight:650;outline:none}.field input:focus,.field select:focus{border-color:var(--primary);box-shadow:0 0 0 4px rgba(37,99,235,.13)}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}.stat{padding:18px;position:relative;overflow:hidden}.stat span{color:var(--muted);font-weight:800;font-size:.82rem;text-transform:uppercase;letter-spacing:.04em}.stat strong{display:block;font-size:1.85rem;color:var(--primary-dark);margin-top:4px}.layout{display:grid;grid-template-columns:minmax(0,2.1fr) minmax(280px,.9fr);gap:18px;align-items:start}.subject-grid{display:grid;gap:14px}.subject-card{padding:18px;position:relative;overflow:hidden;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}.subject-card:hover{transform:translateY(-3px);border-color:#93c5fd;box-shadow:0 22px 44px rgba(37,99,235,.13)}.subject-card header{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}.code{font-size:1.22rem;font-weight:900;color:#1d4ed8;letter-spacing:-.02em}.description{font-weight:800;margin-top:4px;color:#172033}.badge{display:inline-flex;align-items:center;gap:6px;background:#dbeafe;color:#1e40af;border-radius:999px;padding:6px 10px;font-size:.78rem;font-weight:900;white-space:nowrap}.badge.active{background:#dcfce7;color:#166534}.meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:14px;color:#465668}.meta span{background:#f8fafc;border:1px solid #eef2f7;border-radius:14px;padding:9px 10px;font-weight:650}.empty{padding:30px;text-align:center;color:#64748b}.day-group{margin-bottom:20px}.day-title{font-size:.9rem;text-transform:uppercase;letter-spacing:.11em;color:#475569;margin:0 0 10px;display:flex;align-items:center;gap:10px}.day-title:after{content:"";height:1px;background:#cbd5e1;flex:1}.timeline{display:grid;gap:10px;margin-top:14px}.timeline-item{display:grid;grid-template-columns:76px 1fr;gap:10px;align-items:center}.timeline-time{font-weight:900;color:#1e40af;font-size:.82rem}.timeline-card{border-left:4px solid var(--accent);background:#f8fafc;border-radius:14px;padding:10px}.schema-box{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;background:#f8fafc;border:1px dashed #b8c7d8;border-radius:16px;padding:13px;font-size:.88rem;overflow:auto}.note{color:var(--muted);line-height:1.55}.insight-card{padding:16px;margin-top:14px}.insight-card h3,.panel h2{margin-top:0}.pill-row{display:flex;gap:8px;flex-wrap:wrap}.pill{border:1px solid #bfdbfe;background:#eff6ff;color:#1e40af;border-radius:999px;padding:7px 10px;font-weight:800;font-size:.8rem}.compact-list .subject-card{padding:14px}.compact-list .description{display:inline}.toolbar-note{margin:10px 0 0;color:#64748b;font-size:.92rem}@media(max-width:980px){.controls{grid-template-columns:1fr 1fr}.controls .field:first-child{grid-column:1/-1}.layout,.stats{grid-template-columns:1fr 1fr}.layout{align-items:stretch}.layout>section{grid-column:1/-1}}@media(max-width:660px){.container{padding:18px 10px 34px}.hero{padding:22px;border-radius:24px}.controls,.layout,.stats,.meta{grid-template-columns:1fr}.subject-card header{flex-direction:column}.quick-actions{width:100%}.button{flex:1;justify-content:center}.timeline-item{grid-template-columns:1fr}.timeline-time{font-size:.78rem}}
   </style>
 </head>
 <body>
   <main class="container">
-    <div class="topbar">
-      <div>
-        <h1>Subject Management</h1>
-        <p class="lead">A GitHub Pages friendly schedule dashboard powered by <strong>subjects.json</strong> and documented by <strong>subjects.schema.json</strong>.</p>
+    <section class="hero">
+      <div class="topbar">
+        <div>
+          <p class="eyebrow">📚 Static JSON schedule organizer</p>
+          <h1>Subject Organizer</h1>
+          <p class="lead">Browse, sort, and group every subject from <strong>subjects.json</strong> in a polished schedule dashboard built for quick class planning.</p>
+        </div>
+        <p class="quick-actions"><a class="button secondary" href="index.html">← Back to Home</a> <a class="button" href="subjects.json">Open JSON</a></p>
       </div>
-      <p><a class="button secondary" href="index.html">Back to Home</a> <a class="button" href="subjects.json">Open JSON</a></p>
-    </div>
+    </section>
 
     <section class="panel" aria-label="Subject filters">
       <div class="controls">
         <label class="field">Search<input id="searchInput" type="search" placeholder="Code, title, room, instructor..."></label>
         <label class="field">Semester<select id="semesterFilter"><option value="all">All semesters</option></select></label>
         <label class="field">Day<select id="dayFilter"><option value="all">All days</option></select></label>
-        <label class="field">Display<select id="displayMode"><option value="cards">Cards</option><option value="days">Group by day</option><option value="compact">Compact list</option></select></label>
+        <label class="field">Display<select id="displayMode"><option value="days">Group by day</option><option value="cards">Cards</option><option value="compact">Compact list</option></select></label>
         <label class="field">Sort<select id="sortSelect"><option value="day-time">Day + time</option><option value="code">Subject code</option><option value="title">Title</option><option value="units">Units</option><option value="semester">Semester</option></select></label>
+        <label class="field">Order<select id="sortDirection"><option value="asc">Ascending</option><option value="desc">Descending</option></select></label>
       </div>
+      <p class="toolbar-note">Tip: choose <strong>Group by day</strong> and sort by <strong>Day + time</strong> for the cleanest weekly planner view.</p>
     </section>
 
     <section class="stats" aria-label="Subject summary">
-      <div class="stat"><strong id="subjectCount">0</strong>meetings</div>
-      <div class="stat"><strong id="courseCount">0</strong>unique subjects</div>
-      <div class="stat"><strong id="unitCount">0</strong>listed units</div>
-      <div class="stat"><strong id="lastUpdated">—</strong>last updated</div>
+      <div class="stat"><span>Meetings</span><strong id="subjectCount">0</strong></div>
+      <div class="stat"><span>Unique subjects</span><strong id="courseCount">0</strong></div>
+      <div class="stat"><span>Listed units</span><strong id="unitCount">0</strong></div>
+      <div class="stat"><span>Last updated</span><strong id="lastUpdated">—</strong></div>
     </section>
 
     <div class="layout">
@@ -47,6 +52,11 @@
   ]
 }</div>
         <p><a href="subjects.schema.json">View schema</a></p>
+        <div class="insight-card">
+          <h3>Schedule insights</h3>
+          <p class="note" id="scheduleInsight">Loading schedule summary…</p>
+          <div class="pill-row" id="dayPills"></div>
+        </div>
       </aside>
     </div>
   </main>
@@ -62,10 +72,22 @@
       return haystack.includes(query.toLowerCase());
     }
 
+    function getTimeRange(subject) {
+      return `${minutesToDisplay(subject.time_start, subject.time_start_is_am)} – ${minutesToDisplay(subject.time_end, subject.time_end_is_am)}`;
+    }
+
     function renderSubject(subject, compact = false) {
-      const time = `${minutesToDisplay(subject.time_start, subject.time_start_is_am)} – ${minutesToDisplay(subject.time_end, subject.time_end_is_am)}`;
-      const details = compact ? `${subject.dayLabel}, ${time}` : `<div class="meta"><span>📅 ${subject.dayLabel}</span><span>⏰ ${time}</span><span>🏫 ${subject.room || 'TBA'}</span><span>👤 ${subject.instructor || 'TBA'}</span><span>🎓 ${subject.units || 0} units</span><span>📚 ${subject.semester}</span></div>`;
-      return `<article class="subject-card"><header><div><div class="code">${subject.code}</div><div>${subject.description}</div></div><span class="badge">${subject.dayLabel}</span></header>${compact ? `<p class="note">${details} • ${subject.semester}</p>` : details}</article>`;
+      const time = getTimeRange(subject);
+      const activeBadge = subject.activeSemester ? '<span class="badge active">Active term</span>' : '';
+      const details = compact
+        ? `<p class="note">${subject.dayLabel}, ${time} • ${subject.room || 'TBA'} • ${subject.semester}</p>`
+        : `<div class="meta"><span>📅 ${subject.dayLabel}</span><span>⏰ ${time}</span><span>🏫 ${subject.room || 'TBA'}</span><span>👤 ${subject.instructor || 'TBA'}</span><span>🎓 ${subject.units || 0} units</span><span>📚 ${subject.semester}</span></div>`;
+      return `<article class="subject-card"><header><div><div class="code">${subject.code}</div><div class="description">${subject.description}</div></div><div class="pill-row"><span class="badge">${subject.dayLabel}</span>${activeBadge}</div></header>${details}</article>`;
+    }
+
+    function sortSubjects(items, sortBy, direction) {
+      const sorted = [...items].sort((a, b) => compareSubjects(a, b, sortBy));
+      return direction === 'desc' ? sorted.reverse() : sorted;
     }
 
     function applyFilters() {
@@ -73,28 +95,45 @@
       const semester = els.semester.value;
       const day = els.day.value;
       const sortBy = els.sort.value;
-      state.filtered = state.subjects
+      const direction = els.direction.value;
+      state.filtered = sortSubjects(state.subjects
         .filter(subject => semester === 'all' || subject.semester === semester)
         .filter(subject => day === 'all' || subject.day === day)
-        .filter(subject => subjectMatches(subject, query))
-        .sort((a, b) => compareSubjects(a, b, sortBy));
+        .filter(subject => subjectMatches(subject, query)), sortBy, direction);
       render();
+    }
+
+    function renderDayGroups() {
+      const groupedDays = Object.keys(FULL_DAY_ORDER);
+      els.list.innerHTML = groupedDays.map(day => {
+        const items = state.filtered.filter(subject => subject.day === day);
+        return items.length ? `<div class="day-group"><h2 class="day-title">${DAY_LABELS[day]} <span class="badge">${items.length} meeting${items.length === 1 ? '' : 's'}</span></h2><div class="subject-grid">${items.map(subject => renderSubject(subject)).join('')}</div></div>` : '';
+      }).join('');
+    }
+
+    function renderTimeline() {
+      const activeItems = sortSubjects(state.filtered, 'day-time', 'asc').slice(0, 6);
+      els.insight.textContent = state.filtered.length
+        ? `${state.filtered.length} meeting${state.filtered.length === 1 ? '' : 's'} are visible across ${new Set(state.filtered.map(subject => subject.day)).size} scheduled day${new Set(state.filtered.map(subject => subject.day)).size === 1 ? '' : 's'}.`
+        : 'No visible meetings for the current filter.';
+      els.dayPills.innerHTML = uniqueValues(state.filtered, 'day')
+        .sort((a, b) => (FULL_DAY_ORDER[a] || 99) - (FULL_DAY_ORDER[b] || 99))
+        .map(day => `<span class="pill">${DAY_LABELS[day] || day}: ${state.filtered.filter(subject => subject.day === day).length}</span>`).join('');
+      if (!activeItems.length) return;
+      els.dayPills.insertAdjacentHTML('afterend', `<div class="timeline">${activeItems.map(subject => `<div class="timeline-item"><div class="timeline-time">${DAY_LABELS[subject.day] || subject.day}<br>${minutesToDisplay(subject.time_start, subject.time_start_is_am)}</div><div class="timeline-card"><strong>${subject.code}</strong><br><span class="note">${subject.description}</span></div></div>`).join('')}</div>`);
     }
 
     function render() {
       els.subjectCount.textContent = state.filtered.length;
       els.courseCount.textContent = new Set(state.filtered.map(subject => subject.code)).size;
       els.unitCount.textContent = [...new Map(state.filtered.map(subject => [subject.code, Number(subject.units || 0)])).values()].reduce((sum, units) => sum + units, 0);
+      document.querySelectorAll('.timeline').forEach(node => node.remove());
+      renderTimeline();
 
       if (!state.filtered.length) { els.list.innerHTML = '<div class="subject-card empty">No subjects match the selected filters.</div>'; return; }
       const mode = els.display.value;
-      if (mode === 'days') {
-        els.list.innerHTML = Object.keys(FULL_DAY_ORDER).map(day => {
-          const items = state.filtered.filter(subject => subject.day === day);
-          return items.length ? `<div class="day-group"><h2 class="day-title">${DAY_LABELS[day]}</h2><div class="subject-grid">${items.map(subject => renderSubject(subject)).join('')}</div></div>` : '';
-        }).join('');
-        return;
-      }
+      els.list.classList.toggle('compact-list', mode === 'compact');
+      if (mode === 'days') { renderDayGroups(); return; }
       els.list.innerHTML = state.filtered.map(subject => renderSubject(subject, mode === 'compact')).join('');
     }
 
@@ -106,13 +145,13 @@
 
     async function initSubjects() {
       Object.assign(els, {
-        list: document.getElementById('listArea'), search: document.getElementById('searchInput'), semester: document.getElementById('semesterFilter'), day: document.getElementById('dayFilter'), display: document.getElementById('displayMode'), sort: document.getElementById('sortSelect'), subjectCount: document.getElementById('subjectCount'), courseCount: document.getElementById('courseCount'), unitCount: document.getElementById('unitCount'), lastUpdated: document.getElementById('lastUpdated')
+        list: document.getElementById('listArea'), search: document.getElementById('searchInput'), semester: document.getElementById('semesterFilter'), day: document.getElementById('dayFilter'), display: document.getElementById('displayMode'), sort: document.getElementById('sortSelect'), direction: document.getElementById('sortDirection'), subjectCount: document.getElementById('subjectCount'), courseCount: document.getElementById('courseCount'), unitCount: document.getElementById('unitCount'), lastUpdated: document.getElementById('lastUpdated'), insight: document.getElementById('scheduleInsight'), dayPills: document.getElementById('dayPills')
       });
       const data = await fetchSubjectsData();
       if (!data) { els.list.innerHTML = '<div class="subject-card empty">Failed to load subjects.json.</div>'; return; }
       state.subjects = flattenSubjectGroups(data, { visibleOnly: false });
       populateFilters(data);
-      [els.search, els.semester, els.day, els.display, els.sort].forEach(el => el.addEventListener('input', applyFilters));
+      [els.search, els.semester, els.day, els.display, els.sort, els.direction].forEach(el => el.addEventListener('input', applyFilters));
       applyFilters();
     }
 
