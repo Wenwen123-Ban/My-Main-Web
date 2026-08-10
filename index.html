@@ -33,7 +33,7 @@
       <div class="dropdown">
         <button class="dropbtn" type="button">Menu ▾</button>
         <div class="dropdown-content">
-          <button id="mobileViewToggle" class="dropdown-action" type="button" aria-pressed="false">Switch to mobile view</button>
+          <button id="mobileViewToggle" data-mobile-view-toggle class="dropdown-action" type="button" aria-pressed="false">📱 Switch to mobile view</button>
           <a href="subj.html">Subject Management</a>
           <a href="calcugrade.html">CalcuGrade</a>
           <a href="subjects.json">Open Subject JSON</a>
@@ -90,27 +90,6 @@
   <script src="script.js"></script>
   <script>
     const homeEls = {};
-    const MOBILE_VIEW_KEY = 'homeMobileView';
-
-    function applyMobileViewPreference(enabled) {
-      document.body.classList.toggle('mobile-view', enabled);
-      if (homeEls.mobileViewToggle) {
-        homeEls.mobileViewToggle.textContent = enabled ? 'Switch to regular view' : 'Switch to mobile view';
-        homeEls.mobileViewToggle.setAttribute('aria-pressed', String(enabled));
-      }
-    }
-
-    function initMobileViewToggle() {
-      if (!homeEls.mobileViewToggle) return;
-      const savedPreference = localStorage.getItem(MOBILE_VIEW_KEY) === 'true';
-      applyMobileViewPreference(savedPreference);
-      homeEls.mobileViewToggle.addEventListener('click', () => {
-        const enabled = !document.body.classList.contains('mobile-view');
-        localStorage.setItem(MOBILE_VIEW_KEY, String(enabled));
-        applyMobileViewPreference(enabled);
-      });
-    }
-
     function updateDateTime() {
       const now = new Date();
       const timeOptions = { hour: 'numeric', minute: '2-digit', second: '2-digit' };
@@ -234,7 +213,6 @@
       });
       updateDateTime();
       setInterval(updateDateTime, 1000);
-      initMobileViewToggle();
       initDropdown();
       loadHomeSubjects();
       loadNoticeBoard();
