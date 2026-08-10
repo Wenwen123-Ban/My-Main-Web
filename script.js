@@ -171,3 +171,138 @@ function compareSubjects(a, b, sortBy = 'day-time') {
 function uniqueValues(items, key) {
     return [...new Set(items.map(item => item[key]).filter(Boolean))].sort((a, b) => String(a).localeCompare(String(b), undefined, { numeric: true }));
 }
+
+const MOBILE_VIEW_KEY = 'siteMobileView';
+const LEGACY_MOBILE_VIEW_KEY = 'homeMobileView';
+
+const MOBILE_FOOTER_NAV_ITEMS = Object.freeze([
+    { href: 'index.html', icon: '🏠', label: 'Home' },
+    { href: 'subj.html', icon: '📚', label: 'Subjects' },
+    { href: 'calcugrade.html', icon: '🧮', label: 'Grades' },
+    { href: 'download.html', icon: '📂', label: 'Projects' }
+]);
+
+function injectMobileViewStyles() {
+    if (document.getElementById('site-mobile-view-styles')) return;
+    const style = document.createElement('style');
+    style.id = 'site-mobile-view-styles';
+    style.textContent = `
+        .mobile-footer-nav { display: none; }
+        body.mobile-view { padding-bottom: 96px; }
+        body.mobile-view .mobile-footer-nav {
+            position: fixed;
+            left: 50%;
+            bottom: max(12px, env(safe-area-inset-bottom));
+            transform: translateX(-50%);
+            width: min(440px, calc(100vw - 24px));
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 8px;
+            padding: 10px;
+            border: 1px solid rgba(219, 231, 243, .95);
+            border-radius: 26px;
+            background: rgba(15, 23, 42, .92);
+            box-shadow: 0 22px 48px rgba(15, 23, 42, .28);
+            backdrop-filter: blur(18px);
+            z-index: 5000;
+        }
+        body.mobile-view .mobile-footer-nav a {
+            min-width: 0;
+            display: grid;
+            justify-items: center;
+            gap: 3px;
+            padding: 9px 4px;
+            border-radius: 18px;
+            color: rgba(255, 255, 255, .78);
+            text-decoration: none;
+            font: 800 11px/1.1 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+        }
+        body.mobile-view .mobile-footer-nav a[aria-current="page"] {
+            color: #ffffff;
+            background: linear-gradient(135deg, #2563eb, #14b8a6);
+            box-shadow: 0 10px 22px rgba(20, 184, 166, .24);
+        }
+        body.mobile-view .mobile-footer-nav .mobile-footer-icon { font-size: 1.35rem; line-height: 1; }
+        body.mobile-view .mobile-footer-nav .mobile-footer-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%; }
+        body.mobile-view .nav-panel ul,
+        body.mobile-view > nav:not(.mobile-footer-nav) ul { display: none !important; }
+        body.mobile-view .nav-panel,
+        body.mobile-view > nav:not(.mobile-footer-nav) {
+            position: sticky;
+            top: 8px;
+            display: flex;
+            justify-content: flex-end;
+            margin: 10px;
+            padding: 8px;
+            border-radius: 22px;
+            z-index: 4000;
+        }
+        body.mobile-view .nav-panel .dropdown,
+        body.mobile-view > nav:not(.mobile-footer-nav) .dropdown { width: min(100%, 240px); margin-left: auto; }
+        body.mobile-view .nav-panel .dropbtn,
+        body.mobile-view > nav:not(.mobile-footer-nav) .dropbtn { width: 100%; }
+    `;
+    document.head.appendChild(style);
+}
+
+function getCurrentPageName() {
+    const page = window.location.pathname.split('/').pop();
+    return page || 'index.html';
+}
+
+function ensureMobileFooterNav() {
+    let footerNav = document.querySelector('.mobile-footer-nav');
+    if (!footerNav) {
+        footerNav = document.createElement('nav');
+        footerNav.className = 'mobile-footer-nav';
+        footerNav.setAttribute('aria-label', 'Mobile footer navigation');
+        document.body.appendChild(footerNav);
+    }
+
+    const currentPage = getCurrentPageName();
+    footerNav.innerHTML = MOBILE_FOOTER_NAV_ITEMS.map(item => {
+        const active = currentPage === item.href ? ' aria-current="page"' : '';
+        return `<a href="${item.href}"${active}><span class="mobile-footer-icon" aria-hidden="true">${item.icon}</span><span class="mobile-footer-label">${item.label}</span></a>`;
+    }).join('');
+}
+
+function removeMobileFooterNav() {
+    document.querySelector('.mobile-footer-nav')?.remove();
+}
+
+function isMobileViewEnabled() {
+    const current = localStorage.getItem(MOBILE_VIEW_KEY);
+    if (current !== null) return current === 'true';
+    return localStorage.getItem(LEGACY_MOBILE_VIEW_KEY) === 'true';
+}
+
+function applyGlobalMobileViewPreference(enabled) {
+    injectMobileViewStyles();
+    document.body.classList.toggle('mobile-view', enabled);
+    if (enabled) {
+        ensureMobileFooterNav();
+    } else {
+        removeMobileFooterNav();
+    }
+    document.querySelectorAll('[data-mobile-view-toggle]').forEach(toggle => {
+        toggle.textContent = enabled ? '📱 Switch to regular view' : '📱 Switch to mobile view';
+        toggle.setAttribute('aria-pressed', String(enabled));
+    });
+}
+
+function setGlobalMobileViewPreference(enabled) {
+    localStorage.setItem(MOBILE_VIEW_KEY, String(enabled));
+    localStorage.setItem(LEGACY_MOBILE_VIEW_KEY, String(enabled));
+    applyGlobalMobileViewPreference(enabled);
+}
+
+function initGlobalMobileViewControls() {
+    applyGlobalMobileViewPreference(isMobileViewEnabled());
+    document.querySelectorAll('[data-mobile-view-toggle]').forEach(toggle => {
+        toggle.addEventListener('click', () => {
+            setGlobalMobileViewPreference(!document.body.classList.contains('mobile-view'));
+        });
+    });
+}
+
+document.addEventListener('DOMContentLoaded', initGlobalMobileViewControls);

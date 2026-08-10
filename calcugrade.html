@@ -274,6 +274,8 @@ html {
     }
 }
 
+.dropdown-action{display:block;width:100%;border:0;text-align:left;color:#0f766e;background:#ccfbf1;padding:8px 12px;font:inherit;font-size:13px;font-weight:700;height:36px;box-sizing:border-box;cursor:pointer}.dropdown-action:hover,.dropdown-action[aria-pressed="true"]{background:#99f6e4;color:#115e59}.mobile-view{background:linear-gradient(180deg,#f8fbff,#eef4ff);color:#14213d}.mobile-view nav{position:sticky;top:8px;margin:10px;border-radius:22px;background:rgba(15,23,42,.92);box-shadow:0 18px 38px rgba(15,23,42,.18);z-index:20}.mobile-view nav ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;width:100%}.mobile-view nav ul li a{display:flex;justify-content:center;align-items:center;background:rgba(255,255,255,.10);border-radius:14px;padding:11px 8px}.mobile-view .dropbtn{width:100%;border-radius:14px;background:#2563eb;padding:11px}.mobile-view .dropdown{width:100%}.mobile-view .dropdown-content{left:0;right:0;min-width:100%;border-radius:18px;background:#fff}.mobile-view .page{max-width:520px;padding:12px 12px 32px}.mobile-view header,.mobile-view .semester-card{border-radius:22px;background:rgba(255,255,255,.92);box-shadow:0 16px 34px rgba(15,23,42,.10)}.mobile-view h1:before{content:"🧮 ";}.mobile-view .semester-card header{background:linear-gradient(135deg,#dbeafe,#ccfbf1)}.mobile-view .semester-list tr{border:1px solid #dbe7f3;border-radius:16px;background:#f8fafc;padding:10px}
+
     </style>
 </head>
 <body>
@@ -287,6 +289,7 @@ html {
        <div class="dropdown">
          <button class="dropbtn">Menu</button>
          <div class="dropdown-content">
+             <button data-mobile-view-toggle class="dropdown-action" type="button" aria-pressed="false">📱 Switch to mobile view</button>
              <a href="subj.html">Subjects List</a>
              <a href="calcugrade.html">CalcuGrade</a>
              <a href="#">Link 3</a>
@@ -430,5 +433,6 @@ html {
             setupDropdown();
         });
     </script>
+<script src="script.js"></script>
 </body>
 </html>
