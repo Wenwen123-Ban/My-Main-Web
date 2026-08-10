@@ -171,3 +171,37 @@ function compareSubjects(a, b, sortBy = 'day-time') {
 function uniqueValues(items, key) {
     return [...new Set(items.map(item => item[key]).filter(Boolean))].sort((a, b) => String(a).localeCompare(String(b), undefined, { numeric: true }));
 }
+
+const MOBILE_VIEW_KEY = 'siteMobileView';
+const LEGACY_MOBILE_VIEW_KEY = 'homeMobileView';
+
+function isMobileViewEnabled() {
+    const current = localStorage.getItem(MOBILE_VIEW_KEY);
+    if (current !== null) return current === 'true';
+    return localStorage.getItem(LEGACY_MOBILE_VIEW_KEY) === 'true';
+}
+
+function applyGlobalMobileViewPreference(enabled) {
+    document.body.classList.toggle('mobile-view', enabled);
+    document.querySelectorAll('[data-mobile-view-toggle]').forEach(toggle => {
+        toggle.textContent = enabled ? '📱 Switch to regular view' : '📱 Switch to mobile view';
+        toggle.setAttribute('aria-pressed', String(enabled));
+    });
+}
+
+function setGlobalMobileViewPreference(enabled) {
+    localStorage.setItem(MOBILE_VIEW_KEY, String(enabled));
+    localStorage.setItem(LEGACY_MOBILE_VIEW_KEY, String(enabled));
+    applyGlobalMobileViewPreference(enabled);
+}
+
+function initGlobalMobileViewControls() {
+    applyGlobalMobileViewPreference(isMobileViewEnabled());
+    document.querySelectorAll('[data-mobile-view-toggle]').forEach(toggle => {
+        toggle.addEventListener('click', () => {
+            setGlobalMobileViewPreference(!document.body.classList.contains('mobile-view'));
+        });
+    });
+}
+
+document.addEventListener('DOMContentLoaded', initGlobalMobileViewControls);
