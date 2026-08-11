@@ -38,7 +38,19 @@
           "href": "notice.json"
         }
       ]
-    }
+    },
+     {
+      "title": "Weather Update Feature",
+      "message": "Future Weather Updates is Delayed due to being ran statically, please be patient!",
+      "date": "2026-08-11",
+      "label": "Weather Widget",
+      "active": true,
+      "actions": [
+        {
+          "label": "Open notice.json",
+          "href": "notice.json"
+        }
+      ]
     
   ]
 }
