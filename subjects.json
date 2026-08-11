@@ -110,7 +110,7 @@
                     "time_end": "07:00",
                     "time_end_is_am": false,
                     "room": "CAHSS 304",
-                    "instructor": "WENDELYN ABERO",
+                    "instructor": "CAHSS INSTRUCTOR 1",
                     "units": 3
                 },
                 {
@@ -123,7 +123,7 @@
                     "time_end": "07:00",
                     "time_end_is_am": false,
                     "room": "CAHSS 304",
-                    "instructor": "WENDELYN ABERO",
+                    "instructor": "CAHSS INSTRUCTOR 1",
                     "units": 3
                 },
                 {
@@ -131,11 +131,11 @@
                     "code": "GE8",
                     "description": "Life & Works of Rizal",
                     "day": "M",
-                    "time_start": "7:00",
+                    "time_start": "2:00",
                     "time_start_is_am": false,
-                    "time_end": "8:00",
+                    "time_end": "3:00",
                     "time_end_is_am": false,
-                    "room": "TBA",
+                    "room": "CAHSS108",
                     "instructor": "ANGEL JANUARY ROSALIM",
                     "units": 3
                 },
@@ -144,11 +144,11 @@
                     "code": "GE8",
                     "description": "Life & Works of Rizal",
                     "day": "W",
-                    "time_start": "7:00",
+                    "time_start": "2:00",
                     "time_start_is_am": false,
-                    "time_end": "8:00",
+                    "time_end": "3:00",
                     "time_end_is_am": false,
-                    "room": "TBA",
+                    "room": "CAHSS108",
                     "instructor": "ANGEL JANUARY ROSALIM",
                     "units": 3
                 },
@@ -157,11 +157,11 @@
                     "code": "GE8",
                     "description": "Life & Works of Rizal",
                     "day": "F",
-                    "time_start": "7:00",
+                    "time_start": "2:00",
                     "time_start_is_am": false,
-                    "time_end": "8:00",
+                    "time_end": "3:00",
                     "time_end_is_am": false,
-                    "room": "TBA",
+                    "room": "CAHSS108",
                     "instructor": "ANGEL JANUARY ROSALIM",
                     "units": 3
                 },
