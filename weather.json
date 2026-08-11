@@ -1,8 +1,8 @@
 {
-  "location": "Set your city or campus here",
-  "condition": "Weather update pending",
-  "temperature": "--°",
-  "icon": "🌤️",
+  "location": "UNM",
+  "condition": "Mostly Cloudy",
+  "temperature": "31°",
+  "icon": "🌥",
   "last_updated": "2026-08-11",
   "source_label": "Check Weather.com",
   "source_url": "https://weather.com/"
