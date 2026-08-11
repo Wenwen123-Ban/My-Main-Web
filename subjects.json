@@ -14,10 +14,10 @@
                     "code": "CC105B",
                     "description": "Information Management 1 -LAB",
                     "day": "T",
-                    "time_start": "07:00",
+                    "time_start": "09:00",
                     "time_start_is_am": true,
-                    "time_end": "10:00",
-                    "time_end_is_am": true,
+                    "time_end": "12:00",
+                    "time_end_is_am": false,
                     "room": "ITLAB5",
                     "instructor": "MR. RICHIE MERCADEROS",
                     "units": 3
@@ -45,7 +45,7 @@
                     "time_end": "07:00",
                     "time_end_is_am": false,
                     "room": "ITLAB4",
-                    "instructor": "MR. BILL LAWRENCE SAMAR",
+                    "instructor": "Kristian Tare",
                     "units": 3
                 },
                 {
@@ -58,7 +58,7 @@
                     "time_end": "05:00",
                     "time_end_is_am": false,
                     "room": "LECTURE ROOM3",
-                    "instructor": "MR. BILL LAWRENCE SAMAR",
+                    "instructor": "Kristian Tare",
                     "units": 3
                 },
                 {
@@ -175,7 +175,7 @@
                     "time_end": "5:30",
                     "time_end_is_am": false,
                     "room": "JEEP LAB1",
-                    "instructor": "HEARTY GAIL MAXINE LABASTE",
+                    "instructor": "MR. ALDWIN ALO",
                     "units": 3
                 },
                 {
@@ -188,7 +188,7 @@
                     "time_end": "5:30",
                     "time_end_is_am": false,
                     "room": "JEEP LAB1",
-                    "instructor": "HEARTY GAIL MAXINE LABASTE",
+                    "instructor": "MR. ALDWIN ALO",
                     "units": 3
                 },
                 {
