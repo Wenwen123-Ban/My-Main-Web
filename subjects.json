@@ -259,9 +259,9 @@
             ]
         },
         {
-            "active": false,
+            "active": true,
             "semester": "2nd Semester 2026-2027",
-            "show_groups": false,
+            "show_groups": true,
             "show_index_feature": false,
             "featured_subject_id": "1720000003",
             "subjects": [
