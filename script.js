@@ -178,6 +178,7 @@ const LEGACY_MOBILE_VIEW_KEY = 'homeMobileView';
 const MOBILE_FOOTER_NAV_ITEMS = Object.freeze([
     { href: 'index.html', icon: '🏠', label: 'Home' },
     { href: 'subj.html', icon: '📚', label: 'Subjects' },
+    { href: 'Subj_manage.html', icon: '📋', label: 'Sem List' },
     { href: 'calcugrade.html', icon: '🧮', label: 'Grades' },
     { href: 'download.html', icon: '📂', label: 'Projects' }
 ]);
@@ -196,7 +197,7 @@ function injectMobileViewStyles() {
             transform: translateX(-50%);
             width: min(440px, calc(100vw - 24px));
             display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
+            grid-template-columns: repeat(5, minmax(0, 1fr));
             gap: 8px;
             padding: 10px;
             border: 1px solid rgba(219, 231, 243, .95);
