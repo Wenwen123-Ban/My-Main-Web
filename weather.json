@@ -1,9 +1,9 @@
 {
   "location": "UNM",
-  "condition": "Mostly Cloudy",
+  "condition": "Partly Sunny",
   "temperature": "31°",
-  "icon": "🌥",
-  "last_updated": "2026-08-12",
+  "icon": "🌤",
+  "last_updated": "2026-08-13",
   "source_label": "Check Weather.com",
   "source_url": "https://weather.com/"
 }
