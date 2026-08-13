@@ -259,7 +259,7 @@
             ]
         },
         {
-            "active": true,
+            "active": false,
             "semester": "2nd Semester 2026-2027",
             "show_groups": true,
             "show_index_feature": false,
