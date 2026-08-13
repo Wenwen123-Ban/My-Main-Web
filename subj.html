@@ -75,7 +75,7 @@
           <p class="note" id="scheduleInsight">Loading schedule summary…</p>
           <div class="pill-row" id="dayPills"></div>
           <div class="load-graph" id="dailyLoadGraph" aria-label="Daily subject load graph"></div>
-          <p class="load-legend" id="dailyLoadLegend">Each bar counts visible meetings per day from subjects.json.</p>
+          <p class="load-legend" id="dailyLoadLegend">Each bar counts the full subjects.json schedule per day.</p>
         </div>
       </aside>
     </div>
@@ -150,7 +150,8 @@
 
 
     function renderDailyLoadGraph() {
-      const counts = Object.fromEntries(WEEK_DAYS.map(day => [day, state.filtered.filter(subject => subject.day === day).length]));
+      const graphSubjects = state.subjects;
+      const counts = Object.fromEntries(WEEK_DAYS.map(day => [day, graphSubjects.filter(subject => subject.day === day).length]));
       const maxCount = Math.max(1, ...Object.values(counts));
       els.loadGraph.innerHTML = WEEK_DAYS.map(day => {
         const count = counts[day] || 0;
@@ -159,7 +160,7 @@
         return `<div class="load-bar-wrap" title="${DAY_LABELS[day]}: ${count} meeting${count === 1 ? '' : 's'}"><div class="load-track"><div class="load-fill ${level}" style="height:${height}%"></div></div><div class="load-count">${count}</div><div class="load-day">${WEEK_SHORT_LABELS[day]}</div></div>`;
       }).join('');
       const busiest = WEEK_DAYS.reduce((best, day) => counts[day] > counts[best] ? day : best, WEEK_DAYS[0]);
-      els.loadLegend.textContent = state.filtered.length ? `${DAY_LABELS[busiest]} has the heaviest visible load with ${counts[busiest]} meeting${counts[busiest] === 1 ? '' : 's'}; bars update from subjects.json and current filters.` : 'No visible meetings to graph for the current filters.';
+      els.loadLegend.textContent = graphSubjects.length ? `${DAY_LABELS[busiest]} has the heaviest overall load with ${counts[busiest]} meeting${counts[busiest] === 1 ? '' : 's'} in subjects.json. This graph stays fixed when filters change.` : 'No meetings are available in subjects.json to graph.';
     }
 
     function renderTimeline() {
