@@ -51,6 +51,19 @@
           "href": "notice.json"
         }
       ]
+     },
+    {
+      "title": "Semestral Subject List Update Feature",
+      "message": "Feature that list subjects per semester via group_acitve: true ",
+      "date": "2026-08-13",
+      "label": "Semestral Subject List",
+      "active": true,
+      "actions": [
+        {
+          "label": "Open notice.json",
+          "href": "notice.json"
+        }
+      ]
      }
     ]
 }
