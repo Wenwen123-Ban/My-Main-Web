@@ -222,7 +222,7 @@
       const sorted = [...todaySubjects].sort((a, b) => a.startMinutes - b.startMinutes || a.endMinutes - b.endMinutes);
       const current = sorted.find(subject => nowMinutes >= subject.startMinutes && nowMinutes < subject.endMinutes);
       const upcoming = sorted.find(subject => subject.startMinutes > nowMinutes);
-      const next = current ? sorted.find(subject => subject.startMinutes >= current.endMinutes) : upcoming;
+      const next = upcoming || null;
       return { current, upcoming, next };
     }
 
@@ -244,9 +244,11 @@
 
       const { current, upcoming, next } = getSubjectTimingState(cachedTodaySubjects);
       if (current) {
-        const secondsUntilEnd = getSecondsUntil(current.endMinutes, new Date());
+        const now = new Date();
+        const secondsUntilEnd = getSecondsUntil(current.endMinutes, now);
+        const secondsUntilNextStart = next ? getSecondsUntil(next.startMinutes, now) : 0;
         homeEls.subjectNowStat.textContent = current.code || 'Now';
-        homeEls.subjectNowStatus.innerHTML = `<strong>Subject now: ${escapeHtml(current.code)} — ${escapeHtml(current.description)}</strong><span class="note">${getTimeRange(current)} • ${escapeHtml(current.room || 'TBA')}</span><br>${next ? `<span class="note">Next subject will be within <span class="countdown">${formatCountdown(secondsUntilEnd)}</span>: ${escapeHtml(next.code)} at ${minutesToDisplay(next.time_start, next.time_start_is_am)}.</span>` : `<span class="note">No more subject next for today (${dayName}) after this class ends in <span class="countdown">${formatCountdown(secondsUntilEnd)}</span>.</span>`}`;
+        homeEls.subjectNowStatus.innerHTML = `<strong>Subject now: ${escapeHtml(current.code)} — ${escapeHtml(current.description)}</strong><span class="note">${getTimeRange(current)} • ${escapeHtml(current.room || 'TBA')}</span><br><span class="note">Current subject ends in <span class="countdown">${formatCountdown(secondsUntilEnd)}</span>.</span><br>${next ? `<span class="note">Next subject in <span class="countdown">${formatCountdown(secondsUntilNextStart)}</span>: ${escapeHtml(next.code)} at ${minutesToDisplay(next.time_start, next.time_start_is_am)}.</span>` : `<span class="note">No more subject next for today (${dayName}) after this class.</span>`}`;
         homeEls.todaySubjects.innerHTML = cachedTodaySubjects.map(subject => renderTodayItem(subject, subject === current ? 'current' : '')).join('');
         return;
       }
