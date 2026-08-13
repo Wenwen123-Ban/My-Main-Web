@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Semestral Subject List</title>
+  <style>
+    :root{--bg:#eef4ff;--ink:#14213d;--muted:#64748b;--card:#ffffff;--line:#dbe7f3;--primary:#2563eb;--primary-dark:#1e40af;--accent:#14b8a6;--warm:#f59e0b;--danger:#ef4444;--shadow:0 24px 60px rgba(30,64,175,.14);--radius:24px}*{box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;margin:0;background:radial-gradient(circle at top left,rgba(20,184,166,.18),transparent 30%),radial-gradient(circle at top right,rgba(37,99,235,.20),transparent 32%),linear-gradient(180deg,#f8fbff 0%,var(--bg) 100%);color:var(--ink);min-height:100vh}a{color:var(--primary)}.container{max-width:1180px;margin:0 auto;padding:32px 18px 46px}.hero{position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.72);border-radius:32px;padding:30px;background:linear-gradient(135deg,rgba(255,255,255,.92),rgba(239,246,255,.84));box-shadow:var(--shadow)}.hero:after{content:"";position:absolute;right:-72px;top:-88px;width:250px;height:250px;border-radius:50%;background:linear-gradient(135deg,rgba(37,99,235,.22),rgba(20,184,166,.18))}.topbar{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;flex-wrap:wrap;position:relative;z-index:1}.eyebrow{display:inline-flex;gap:8px;align-items:center;margin:0 0 10px;padding:7px 12px;border-radius:999px;background:#e0f2fe;color:#075985;font-size:.82rem;font-weight:800;letter-spacing:.03em;text-transform:uppercase}h1{margin:.15rem 0;color:#0f172a;font-size:clamp(2rem,5vw,4.15rem);line-height:.98;letter-spacing:-.055em}.lead{color:#475569;margin:.9rem 0 0;max-width:680px;font-size:1.05rem;line-height:1.7}.button{display:inline-flex;align-items:center;gap:8px;background:var(--primary);color:#fff;padding:11px 15px;border-radius:14px;text-decoration:none;font-weight:800;box-shadow:0 12px 24px rgba(37,99,235,.22)}.button.secondary{background:#0f172a}.quick-actions{display:flex;gap:10px;flex-wrap:wrap;margin:0}.nav-panel,.panel,.subject-card,.stat{background:rgba(255,255,255,.88);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 16px 38px rgba(15,23,42,.07);backdrop-filter:blur(14px)}.nav-panel{display:flex;justify-content:space-between;align-items:center;gap:16px;margin:18px 0;padding:12px 14px;position:relative;z-index:100}.nav-panel ul{list-style:none;display:flex;gap:10px;flex-wrap:wrap;margin:0;padding:0}.nav-panel a,.dropbtn{border:0;border-radius:14px;padding:10px 12px;font:inherit;font-weight:800;text-decoration:none;color:#334155;background:#f8fafc}.nav-panel a:hover,.nav-panel a[aria-current="page"],.dropbtn:hover,.dropbtn.active{background:#dbeafe;color:#1e40af}.dropdown{position:relative}.dropdown-content{display:none;position:absolute;right:0;top:calc(100% + 8px);min-width:210px;max-height:220px;overflow:auto;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 18px 42px rgba(15,23,42,.16);z-index:1000;padding:8px}.dropdown-content.active{display:grid;gap:4px}.dropdown-content a,.dropdown-action{display:block;white-space:nowrap;width:100%;text-align:left}.dropdown-action{border:0;cursor:pointer;border-radius:14px;padding:10px 12px;font:inherit;font-weight:900;text-decoration:none;color:#0f766e;background:#ccfbf1}.dropdown-action:hover,.dropdown-action[aria-pressed="true"]{background:#99f6e4;color:#115e59}.mobile-switch-note{display:none}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0}.stat{padding:18px;position:relative;overflow:hidden}.stat span{color:var(--muted);font-weight:800;font-size:.82rem;text-transform:uppercase;letter-spacing:.04em}.stat strong{display:block;font-size:1.85rem;color:var(--primary-dark);margin-top:4px}.panel{padding:18px}.section-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}.section-heading h2{margin:0;color:#0f172a;font-size:1.25rem}.note{color:var(--muted);line-height:1.55}.badge{display:inline-flex;align-items:center;gap:6px;background:#dbeafe;color:#1e40af;border-radius:999px;padding:6px 10px;font-size:.78rem;font-weight:900;white-space:nowrap}.semester-list{display:grid;gap:18px}.semester-panel{position:relative;overflow:hidden}.semester-panel:before{content:"";position:absolute;right:-44px;top:-52px;width:150px;height:150px;border-radius:50%;background:linear-gradient(135deg,rgba(37,99,235,.12),rgba(20,184,166,.14))}.semester-header{position:relative;display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:16px}.semester-title{margin:0;color:#0f172a;font-size:clamp(1.35rem,3vw,2rem);letter-spacing:-.035em}.semester-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.subject-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;position:relative}.subject-card{padding:18px;position:relative;overflow:hidden;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}.subject-card:hover{transform:translateY(-3px);border-color:#93c5fd;box-shadow:0 22px 44px rgba(37,99,235,.13)}.subject-card header{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}.code{font-size:1.18rem;font-weight:900;color:#1d4ed8;letter-spacing:-.02em}.description{font-weight:800;margin-top:4px;color:#172033}.meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:14px;color:#465668}.meta span{background:#f8fafc;border:1px solid #eef2f7;border-radius:14px;padding:9px 10px;font-weight:650}.empty{padding:26px;text-align:center;color:#64748b}.mobile-view{background:#f8fafc}.mobile-view .container{max-width:520px;padding:12px 10px 28px}.mobile-view .hero{padding:20px;border-radius:28px;background:linear-gradient(180deg,#ffffff,#e0f2fe);box-shadow:0 18px 38px rgba(15,23,42,.10)}.mobile-view .hero:after{width:160px;height:160px;right:-70px;top:-60px}.mobile-view .topbar{display:grid;gap:16px}.mobile-view h1{font-size:2.35rem;line-height:1.03;letter-spacing:-.04em}.mobile-view .lead{font-size:.98rem;line-height:1.55}.mobile-view .quick-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mobile-view .button{justify-content:center;padding:12px 10px;border-radius:16px}.mobile-view .nav-panel{position:sticky;top:8px;display:grid;gap:10px;margin:12px 0;padding:10px;border-radius:22px}.mobile-view .nav-panel ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;width:100%}.mobile-view .nav-panel a,.mobile-view .dropbtn,.mobile-view .dropdown-action{text-align:center;justify-content:center;padding:11px 8px;font-size:.92rem}.mobile-view .dropdown{width:100%}.mobile-view .dropdown-content{left:0;right:0;max-height:70vh}.mobile-view .mobile-switch-note{display:block;margin:6px 2px 0;color:#0f766e;font-weight:800;font-size:.82rem}.mobile-view .stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0}.mobile-view .stat{padding:14px;border-radius:20px}.mobile-view .stat strong{font-size:1.45rem}.mobile-view .panel,.mobile-view .subject-card{border-radius:20px;padding:14px}.mobile-view .semester-list{gap:12px}.mobile-view .subject-grid{grid-template-columns:1fr;gap:10px}.mobile-view .subject-card header{display:grid;gap:10px}.mobile-view .meta{grid-template-columns:1fr;gap:7px;margin-top:10px}@media(max-width:980px){.stats{grid-template-columns:1fr 1fr}.subject-grid{grid-template-columns:1fr}}@media(max-width:660px){.container{padding:18px 10px 34px}.hero{padding:22px;border-radius:24px}.nav-panel,.topbar{align-items:stretch}.nav-panel{flex-direction:column}.nav-panel ul,.quick-actions{width:100%}.button{flex:1;justify-content:center}.stats,.meta{grid-template-columns:1fr}.subject-card header,.semester-header{flex-direction:column}.dropdown{width:100%}.dropbtn{width:100%}.dropdown-content{left:0;right:0}}
+
+    .simple-subject-list{display:grid;gap:10px;position:relative}.simple-subject-card{display:grid;grid-template-columns:minmax(110px,.35fr) minmax(0,1fr) auto;align-items:center;gap:12px;padding:14px 16px}.simple-subject-card .description{margin-top:0}.unit-badge{background:#dcfce7;color:#166534}.mobile-view .simple-subject-card{grid-template-columns:1fr;align-items:start}.mobile-view .unit-badge{width:max-content}
+  </style>
+</head>
+<body>
+  <main class="container">
+    <section class="hero">
+      <div class="topbar">
+        <div>
+          <p class="eyebrow">📚 Subject dashboard</p>
+          <h1>Semestral Subject List</h1>
+          <p class="lead">Browse each activated semester from <code>subjects.json</code>. Every visible semester is separated into its own group so the subjects do not become one continuous list.</p>
+          <p class="mobile-switch-note">Mobile view is active. Use Menu ▾ to switch back to the regular desktop layout.</p>
+        </div>
+        <p class="quick-actions"><a class="button secondary" href="subj.html">Manage Subjects</a><a class="button" href="subjects.json">Open JSON</a></p>
+      </div>
+    </section>
+
+    <nav class="nav-panel" aria-label="Primary navigation">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#intro">Introducing</a></li>
+        <li><a href="download.html">Projects</a></li>
+        <li><a href="subj.html">Subjects</a></li>
+        <li><a href="index.html#features">Features</a></li>
+      </ul>
+      <div class="dropdown">
+        <button class="dropbtn" type="button">Menu ▾</button>
+        <div class="dropdown-content">
+          <button id="mobileViewToggle" data-mobile-view-toggle class="dropdown-action" type="button" aria-pressed="false">📱 Switch to mobile view</button>
+          <a href="Subj_manage.html" aria-current="page">Semestral Subject List</a>
+          <a href="subj.html">Subject Management</a>
+          <a href="calcugrade.html">CalcuGrade</a>
+          <a href="subjects.json">Open Subject JSON</a>
+        </div>
+      </div>
+    </nav>
+
+    <section class="stats" aria-label="Subject list summary">
+      <div class="stat"><span>Visible semesters</span><strong id="groupCount">0</strong></div>
+      <div class="stat"><span>Listed subjects</span><strong id="meetingCount">0</strong></div>
+      <div class="stat"><span>Unique subjects</span><strong id="courseCount">0</strong></div>
+      <div class="stat"><span>Total units</span><strong id="unitCount">0</strong></div>
+    </section>
+
+    <section class="panel" aria-labelledby="listHeading">
+      <div class="section-heading"><div><h2 id="listHeading">Activated semester groups</h2><p class="note">A semester appears here when it is marked <code>active: true</code> or <code>show_groups: true</code>.</p></div><span class="badge">Grouped by semester</span></div>
+      <div id="semesterList" class="semester-list">Loading subjects…</div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+  <script>
+    const pageEls = {};
+
+    function escapeHtml(value) {
+      return String(value ?? '').replace(/[&<>"']/g, char => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+      })[char]);
+    }
+
+    function getDisplayGroups(data) {
+      const groups = Array.isArray(data?.semester_groups) ? data.semester_groups : (data ? [data] : []);
+      return groups.filter(group => group?.active === true || group?.show_groups === true);
+    }
+
+    function getUniqueSubjects(subjects) {
+      const uniqueSubjects = new Map();
+      subjects.forEach(subject => {
+        const key = `${subject.code || ''}|${subject.description || ''}|${subject.units || 0}`;
+        if (!uniqueSubjects.has(key)) uniqueSubjects.set(key, subject);
+      });
+      return [...uniqueSubjects.values()];
+    }
+
+    function renderSubjectCard(subject) {
+      return `<article class="subject-card simple-subject-card"><div class="code">${escapeHtml(subject.code || 'No code')}</div><div class="description">${escapeHtml(subject.description || 'No description provided')}</div><span class="badge unit-badge">${escapeHtml(subject.units || 0)} units</span></article>`;
+    }
+
+    function renderSemesterGroup(group, index) {
+      const normalizedSubjects = (Array.isArray(group.subjects) ? group.subjects : [])
+        .map(subject => normalizeSubject(subject, group))
+        .sort((a, b) => compareSubjects(a, b, 'day-time'));
+      const listedSubjects = getUniqueSubjects(normalizedSubjects);
+      const uniqueCourses = new Set(listedSubjects.map(subject => subject.code).filter(Boolean)).size;
+      const totalUnits = listedSubjects.reduce((sum, subject) => sum + Number(subject.units || 0), 0);
+      const statusBadge = group.active === true ? 'Active semester' : 'Shown group';
+
+      return `<section class="panel semester-panel" aria-labelledby="semester-${index}"><div class="semester-header"><div><h2 class="semester-title" id="semester-${index}">${escapeHtml(group.semester || 'Untitled semester')}</h2><div class="semester-meta"><span class="badge">${statusBadge}</span><span class="badge">${listedSubjects.length} subjects</span><span class="badge">${uniqueCourses} subject codes</span><span class="badge">${totalUnits} units listed</span></div></div></div><div class="simple-subject-list">${listedSubjects.length ? listedSubjects.map(renderSubjectCard).join('') : '<div class="subject-card empty">No subjects are listed for this semester.</div>'}</div></section>`;
+    }
+
+    async function loadSemestralSubjects() {
+      const data = await fetchSubjectsData();
+      if (!data) {
+        pageEls.semesterList.innerHTML = '<div class="empty">Failed to load subjects.json.</div>';
+        return;
+      }
+
+      const groups = getDisplayGroups(data);
+      const subjects = groups.flatMap(group => getUniqueSubjects((Array.isArray(group.subjects) ? group.subjects : []).map(subject => normalizeSubject(subject, group))));
+      pageEls.groupCount.textContent = groups.length;
+      pageEls.meetingCount.textContent = subjects.length;
+      pageEls.courseCount.textContent = new Set(subjects.map(subject => subject.code).filter(Boolean)).size;
+      pageEls.unitCount.textContent = subjects.reduce((sum, subject) => sum + Number(subject.units || 0), 0);
+      pageEls.semesterList.innerHTML = groups.length ? groups.map(renderSemesterGroup).join('') : '<div class="empty">No semester is active or marked to show groups in subjects.json.</div>';
+    }
+
+    function initDropdown() {
+      const dropbtn = document.querySelector('.dropbtn');
+      const dropdownContent = document.querySelector('.dropdown-content');
+      if (!dropbtn || !dropdownContent) return;
+      dropbtn.addEventListener('click', () => {
+        dropdownContent.classList.toggle('active');
+        dropbtn.classList.toggle('active');
+      });
+      document.addEventListener('click', event => {
+        if (!event.target.closest('.dropdown')) {
+          dropdownContent.classList.remove('active');
+          dropbtn.classList.remove('active');
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      Object.assign(pageEls, {
+        semesterList: document.getElementById('semesterList'),
+        groupCount: document.getElementById('groupCount'),
+        meetingCount: document.getElementById('meetingCount'),
+        courseCount: document.getElementById('courseCount'),
+        unitCount: document.getElementById('unitCount')
+      });
+      initDropdown();
+      loadSemestralSubjects();
+    });
+  </script>
+</body>
+</html>
